@@ -31,6 +31,8 @@
                 <th>{{ __('Year Class') }}</th>
                 <th>{{ __('Born Place') }}</th>
                 <th>{{ __('Born Date') }}</th>
+                <th>{{ __('Religion') }}</th>
+                <th>{{ __('Gender') }}</th>
                 <th>{{ __('Father Education') }}</th>
                 <th>{{ __('Mother Education') }}</th>
                 <th>{{ __('Father Job') }}</th>
@@ -53,8 +55,10 @@
             <tr>
                 <td>{{ $student->study_program }}</td>
                 <td>{{ $student->year_class }}</td>
-                <td>{{ $student->bornData()->born_place == 1 ? 'Jakarta' : 'Luar Jakarta' }}</td>
+                <td>{{ $student->bornData()->born_place == 1 ? 'Luar Kota' : 'Dalam Kota' }}</td>
                 <td>{{ $student->bornData()->born_date }}</td>
+                <td>{{ $student->religion }}</td>
+                <td>{{ $student->gender }}</td>
                 <td>{{ $student->parentData()->father_education }}</td>
                 <td>{{ $student->parentData()->mother_education }}</td>
                 <td>{{ $student->parentData()->father_job }}</td>

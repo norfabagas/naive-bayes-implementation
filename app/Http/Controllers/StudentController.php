@@ -61,7 +61,7 @@ class StudentController extends Controller
                         'born_date' => $line[3]
                     ]),
                     'religion' => $line[4],
-                    'gender' => $line[5],
+                    'gender' => $this->filterGender($line[5]),
                     'address' => $line[6],
                     'parent_data' => json_encode([
                         'father_education' => $line[7],
@@ -157,9 +157,9 @@ class StudentController extends Controller
         $bornPlace = trim($bornPlace);
 
         if ($bornPlace == 'jakarta') {
-            return 1;
-        } else {
             return 2;
+        } else {
+            return 1;
         }
     }
 
@@ -181,6 +181,25 @@ class StudentController extends Controller
                 return 3;
             default:
                 return 0;
+        }
+    }
+
+    /**
+     * filter gender
+     * 
+     * @param string $gender
+     * 
+     * @return int
+     */
+    protected function filterGender($gender)
+    {
+        $gender = strtolower($gender);
+        $gender = trim($gender);
+
+        if ($gender == 'pria') {
+            return 1;
+        } else {
+            return 2;
         }
     }
 }
