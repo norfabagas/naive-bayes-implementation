@@ -64,8 +64,8 @@ class StudentController extends Controller
                     'gender' => $this->filterGender($line[5]),
                     'address' => $line[6],
                     'parent_data' => json_encode([
-                        'father_education' => $line[7],
-                        'mother_education' => $line[8],
+                        'father_education' => $this->filterEducation($line[7]),
+                        'mother_education' => $this->filterEducation($line[8]),
                         'father_job' => $line[9],
                         'mother_job' => $line[10]
                     ])
@@ -83,12 +83,12 @@ class StudentController extends Controller
                         'sixth' => $this->filterGpa((float) $line[16])
                     ]),
                     'course_credit' => json_encode([
-                        'first' => $line[17],
-                        'second' => $line[18],
-                        'third' => $line[19],
-                        'fourth' => $line[20],
-                        'fifth' => $line[21],
-                        'sixth' => $line[22]
+                        'first' => $this->filterCourseCredit((int) $line[17]),
+                        'second' => $this->filterCourseCredit((int) $line[18]),
+                        'third' => $this->filterCourseCredit((int) $line[19]),
+                        'fourth' => $this->filterCourseCredit((int) $line[20]),
+                        'fifth' => $this->filterCourseCredit((int) $line[21]),
+                        'sixth' => $this->filterCourseCredit((int) $line[22])
                     ]),
                     'status' => json_encode([
                         'numeric' => $this->filterStatus($line[23]),
@@ -200,6 +200,61 @@ class StudentController extends Controller
             return 1;
         } else {
             return 2;
+        }
+    }
+
+    /**
+     * filter course credit
+     * 
+     * @param int $courseCredit
+     * 
+     * @return int
+     */
+    protected function filterCourseCredit($courseCredit)
+    {
+        if ($courseCredit < 18) {
+            return 1;
+        } else if ($courseCredit >= 18 && $courseCredit <= 21) {
+            return 2;
+        } else if ($courseCredit > 21 && $courseCredit <= 24) {
+            return 3;
+        } else {
+            return 0;
+        }
+    }
+
+    /**
+     * filter education
+     * 
+     * @param string $education
+     * 
+     * @return int
+     */
+    protected function filterEducation($education)
+    {
+        $education = strtolower($education);
+        $education = trim($education);
+
+        if (strpos($education, 'putus sekolah') !== false) {
+            return 1;
+        } else if (strpos($education, 'sd') !== false) {
+            return 2;
+        } else if (strpos($education, 'smp') !== false) {
+            return 3;
+        } else if (strpos($education, 'sma') !== false) {
+            return 4;
+        } else if (strpos($education, 'd3') !== false) {
+            return 5;
+        } else if (strpos($education, 's1') !== false) {
+            return 6;
+        } else if (strpos($education, 's2') !== false) {
+            return 7;
+        } else if (strpos($education, 's3') !== false) {
+            return 8;
+        } else if (strpos($education, 'profesi') !== false) {
+            return 9;
+        } else {
+            return 0;
         }
     }
 }
