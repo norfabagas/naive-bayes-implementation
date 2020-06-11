@@ -108,6 +108,14 @@ class StudentController extends Controller
     }
 
     /**
+     * test form
+     */
+    public function test(Request $request)
+    {
+        return view('students.test');
+    }
+
+    /**
      * read csv file
      * 
      * @param string $csvFile

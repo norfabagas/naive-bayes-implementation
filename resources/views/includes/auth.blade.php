@@ -16,9 +16,11 @@
                 <div class="card-body">
                     <ul class="nav flex-column">
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('student.index') }}">Index</a>
+                            <a class="nav-link" href="{{ route('student.index') }}">{{ __('Index') }}</a>
                         </li>
-
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('student.test') }}">{{ __('Test') }}</a>
+                        </li>
                     </ul>
                 </div>
             </div>

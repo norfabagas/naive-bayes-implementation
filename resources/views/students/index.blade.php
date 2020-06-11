@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="card">
-    <div class="card-header">Data Training</div>
+    <div class="card-header">{{ __('Data Training') }}</div>
     <div class="card-body">
         <div class="row">
             <form method="POST" enctype="multipart/form-data" action="{{ route('student.submitExcel') }}">
