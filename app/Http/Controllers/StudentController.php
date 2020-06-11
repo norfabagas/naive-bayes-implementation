@@ -112,7 +112,27 @@ class StudentController extends Controller
      */
     public function test(Request $request)
     {
-        return view('students.test');
+        $result = [];
+        if (isset($request->_token)) {
+            $bornPlace = $request->born_place;
+            $gender = $request->gender;
+            $motherEducation = $request->mother_education;
+            $gpa1 = $request->gpa_1;
+            $gpa2 = $request->gpa_2;
+            $gpa3 = $request->gpa_3;
+            $gpa4 = $request->gpa_4;
+            $gpa5 = $request->gpa_5;
+            $gpa6 = $request->gpa_6;
+            $cc1 = $request->cc_1;
+            $cc2 = $request->cc_2;
+            $cc3 = $request->cc_3;
+            $cc4 = $request->cc_4;
+            $cc5 = $request->cc_5;
+            $cc6 = $request->cc_6;
+        }
+
+        return view('students.test')
+            ->with('result', $result);
     }
 
     /**
@@ -261,5 +281,33 @@ class StudentController extends Controller
         } else {
             return 0;
         }
+    }
+
+    /**
+     * get statistics for all data
+     * 
+     * @return array $totalData
+     */
+    protected function getStatistics()
+    {
+        $totalData = [
+            'positive' => DB::table('students AS s')
+                ->join('scores AS sc', 's.id', '=', 'sc.student_id')
+                ->select('sc.status')
+                ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") = 1')
+                ->count(),
+            'negative' => DB::table('students AS s')
+                ->join('scores AS sc', 's.id', '=', 'sc.student_id')
+                ->select('sc.status')
+                ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") = 2')
+                ->count(),
+            'total' => DB::table('students AS s')
+                ->join('scores AS sc', 's.id', '=', 'sc.student_id')
+                ->select('sc.status')
+                ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") != 0')
+                ->count()
+        ];
+
+        return $totalData;
     }
 }

@@ -27,8 +27,8 @@
             <div class="form-row">
                 <div class="col-md-6">
                     <label>{{ __('Born Place') }}</label>
-                    <select name="born_place" class="form-control" required>
-                        <option>-Select-</option>
+                    <select name="born_place" class="form-control" required="true">
+                        <option value="" selected>-Select-</option>
                         <option value="1">{{ __('Outside the City') }}</option>
                         <option value="2">{{ __('In the City') }}</option>
                     </select>
@@ -46,7 +46,7 @@
                 <div class="col-md-6">
                     <label>{{ __('Religion') }}</label>
                     <select name="religion" class="form-control" required>
-                        <option>-Select-</option>
+                        <option value="" selected>-Select-</option>
                         <option value="Islam">{{ __('Islam') }}</option>
                         <option value="Protestan">{{ __('Protestan') }}</option>
                         <option value="Katolik">{{ __('Katolik') }}</option>
@@ -59,7 +59,7 @@
                 <div class="col-md-6">
                     <label>{{ __('Gender') }}</label>
                     <select name="gender" class="form-control" required>
-                        <option>-Select-</option>
+                        <option value="" selected>-Select-</option>
                         <option value="1">{{ __('Male') }}</option>
                         <option value="2">{{ __('Female') }}</option>
                     </select>
@@ -75,7 +75,7 @@
                 <div class="col-md-6">
                     <label>{{ __('Father Education') }}</label>
                     <select name="father_education" class="form-control" required>
-                        <option>-Select-</option>
+                        <option value="" selected>-Select-</option>
                         <option value="1">{{ __('Dropout') }}</option>
                         <option value="2">{{ __('SD') }}</option>
                         <option value="3">{{ __('SMP') }}</option>
@@ -91,7 +91,7 @@
                 <div class="col-md-6">
                     <label>{{ __('Mother Education') }}</label>
                     <select name="mother_education" class="form-control" required>
-                        <option>-Select-</option>
+                        <option value="" selected>-Select-</option>
                         <option value="1">{{ __('Dropout') }}</option>
                         <option value="2">{{ __('SD') }}</option>
                         <option value="3">{{ __('SMP') }}</option>
@@ -128,7 +128,7 @@
                 <div class="col-md-4">
                     <label>{{ __('GPA #1') }}</label>
                     <select name="gpa_1" class="form-control" required>
-                        <option>---Select---</option>
+                        <option value="" selected>---Select---</option>
                         <option value="3">{{ __('GPA >= 3') }}</option>
                         <option value="2">{{ __('2 <= GPA < 3') }}</option>
                         <option value="1">{{ __('GPA < 2') }}</option>
@@ -137,7 +137,7 @@
                 <div class="col-md-4">
                     <label>{{ __('GPA #2') }}</label>
                     <select name="gpa_2" class="form-control" required>
-                        <option>---Select---</option>
+                        <option value="" selected>---Select---</option>
                         <option value="3">{{ __('GPA >= 3') }}</option>
                         <option value="2">{{ __('2 <= GPA < 3') }}</option>
                         <option value="1">{{ __('GPA < 2') }}</option>
@@ -146,7 +146,7 @@
                 <div class="col-md-4">
                     <label>{{ __('GPA #3') }}</label>
                     <select name="gpa_3" class="form-control" required>
-                        <option>---Select---</option>
+                        <option value="" selected>---Select---</option>
                         <option value="3">{{ __('GPA >= 3') }}</option>
                         <option value="2">{{ __('2 <= GPA < 3') }}</option>
                         <option value="1">{{ __('GPA < 2') }}</option>
@@ -160,7 +160,7 @@
                 <div class="col-md-4">
                     <label>{{ __('GPA #4') }}</label>
                     <select name="gpa_4" class="form-control" required>
-                        <option>---Select---</option>
+                        <option value="" selected>---Select---</option>
                         <option value="3">{{ __('GPA >= 3') }}</option>
                         <option value="2">{{ __('2 <= GPA < 3') }}</option>
                         <option value="1">{{ __('GPA < 2') }}</option>
@@ -169,7 +169,7 @@
                 <div class="col-md-4">
                     <label>{{ __('GPA #5') }}</label>
                     <select name="gpa_5" class="form-control" required>
-                        <option>---Select---</option>
+                        <option value="" selected>---Select---</option>
                         <option value="3">{{ __('GPA >= 3') }}</option>
                         <option value="2">{{ __('2 <= GPA < 3') }}</option>
                         <option value="1">{{ __('GPA < 2') }}</option>
@@ -178,7 +178,7 @@
                 <div class="col-md-4">
                     <label>{{ __('GPA #6') }}</label>
                     <select name="gpa_6" class="form-control" required>
-                        <option>---Select---</option>
+                        <option value="" selected>---Select---</option>
                         <option value="3">{{ __('GPA >= 3') }}</option>
                         <option value="2">{{ __('2 <= GPA < 3') }}</option>
                         <option value="1">{{ __('GPA < 2') }}</option>
@@ -192,7 +192,7 @@
                 <div class="col-md-4">
                     <label>{{ __('Course Credit #1') }}</label>
                     <select name="cc_1" class="form-control" required>
-                        <option>---Select---</option>
+                        <option value="" selected>---Select---</option>
                         <option value="3">{{ __('21 < Course Credit <= 24') }}</option>
                         <option value="2">{{ __('18 <= Course Credit <= 21') }}</option>
                         <option value="1">{{ __('Course Credit < 18') }}</option>
@@ -201,7 +201,7 @@
                 <div class="col-md-4">
                     <label>{{ __('Course Credit #2') }}</label>
                     <select name="cc_2" class="form-control" required>
-                        <option>---Select---</option>
+                        <option value="" selected>---Select---</option>
                         <option value="3">{{ __('21 < Course Credit <= 24') }}</option>
                         <option value="2">{{ __('18 <= Course Credit <= 21') }}</option>
                         <option value="1">{{ __('Course Credit < 18') }}</option>
@@ -210,7 +210,7 @@
                 <div class="col-md-4">
                     <label>{{ __('Course Credit #3') }}</label>
                     <select name="cc_3" class="form-control" required>
-                        <option>---Select---</option>
+                        <option value="" selected>---Select---</option>
                         <option value="3">{{ __('21 < Course Credit <= 24') }}</option>
                         <option value="2">{{ __('18 <= Course Credit <= 21') }}</option>
                         <option value="1">{{ __('Course Credit < 18') }}</option>
@@ -224,7 +224,7 @@
                 <div class="col-md-4">
                     <label>{{ __('Course Credit #4') }}</label>
                     <select name="cc_4" class="form-control" required>
-                        <option>---Select---</option>
+                        <option value="" selected>---Select---</option>
                         <option value="3">{{ __('21 < Course Credit <= 24') }}</option>
                         <option value="2">{{ __('18 <= Course Credit <= 21') }}</option>
                         <option value="1">{{ __('Course Credit < 18') }}</option>
@@ -233,7 +233,7 @@
                 <div class="col-md-4">
                     <label>{{ __('Course Credit #5') }}</label>
                     <select name="cc_5" class="form-control" required>
-                        <option>---Select---</option>
+                        <option value="" selected>---Select---</option>
                         <option value="3">{{ __('21 < Course Credit <= 24') }}</option>
                         <option value="2">{{ __('18 <= Course Credit <= 21') }}</option>
                         <option value="1">{{ __('Course Credit < 18') }}</option>
@@ -242,7 +242,7 @@
                 <div class="col-md-4">
                     <label>{{ __('Course Credit #6') }}</label>
                     <select name="cc_6" class="form-control" required>
-                        <option>---Select---</option>
+                        <option value="" selected>---Select---</option>
                         <option value="3">{{ __('21 < Course Credit <= 24') }}</option>
                         <option value="2">{{ __('18 <= Course Credit <= 21') }}</option>
                         <option value="1">{{ __('Course Credit < 18') }}</option>
