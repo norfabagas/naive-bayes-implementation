@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Student;
 use App\Score;
 use Illuminate\Http\Request;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
@@ -172,13 +171,11 @@ class StudentController extends Controller
      */
     protected function filterStatus($status)
     {
-        switch (trim($status)) {
-            case 'Aktif atau Belum Keluar/Lulus':
+        switch (trim(strtolower($status))) {
+            case 'lulus':
                 return 1;
-            case 'Keluar':
+            case 'belum lulus':
                 return 2;
-            case 'Lulus':
-                return 3;
             default:
                 return 0;
         }
