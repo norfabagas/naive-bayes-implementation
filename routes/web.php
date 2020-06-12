@@ -25,4 +25,5 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/student', 'StudentController@index')->name('student.index');
     Route::post('/student', 'StudentController@submitExcel')->name('student.submitExcel');
     Route::get('/student/test', 'StudentController@test')->name('student.test');
+    Route::get('/student/statistic', 'StudentController@statistic')->name('student.statistic');
 });

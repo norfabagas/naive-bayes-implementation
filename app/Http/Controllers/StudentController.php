@@ -112,10 +112,6 @@ class StudentController extends Controller
      */
     public function test(Request $request)
     {
-        dd(
-            $this->getStatistics()
-        );
-
         $result = [];
         if (isset($request->_token)) {
             $bornPlace = $request->born_place;
@@ -136,6 +132,15 @@ class StudentController extends Controller
 
         return view('students.test')
             ->with('result', $result);
+    }
+
+    /**
+     * statistic view
+     */
+    public function statistic()
+    {
+        return view('students.statistic')
+            ->with('statistics', $this->getStatistics());
     }
 
     /**
