@@ -112,11 +112,14 @@ class StudentController extends Controller
      */
     public function test(Request $request)
     {
+        dd(
+            $this->getStatistics()
+        );
+
         $result = [];
         if (isset($request->_token)) {
             $bornPlace = $request->born_place;
             $gender = $request->gender;
-            $motherEducation = $request->mother_education;
             $gpa1 = $request->gpa_1;
             $gpa2 = $request->gpa_2;
             $gpa3 = $request->gpa_3;
@@ -284,6 +287,18 @@ class StudentController extends Controller
     }
 
     /**
+     * generate base query for all data
+     * 
+     * @return Illuminate\Support\Facades\DB
+     */
+    protected function baseQuery()
+    {
+        return DB::table('students AS s')
+            ->join('scores AS sc', 's.id', '=', 'sc.student_id')
+            ->select('sc.status AS status');
+    }
+
+    /**
      * get statistics for all data
      * 
      * @return array $totalData
@@ -291,21 +306,605 @@ class StudentController extends Controller
     protected function getStatistics()
     {
         $totalData = [
-            'positive' => DB::table('students AS s')
-                ->join('scores AS sc', 's.id', '=', 'sc.student_id')
-                ->select('sc.status')
-                ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") = 1')
-                ->count(),
-            'negative' => DB::table('students AS s')
-                ->join('scores AS sc', 's.id', '=', 'sc.student_id')
-                ->select('sc.status')
-                ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") = 2')
-                ->count(),
-            'total' => DB::table('students AS s')
-                ->join('scores AS sc', 's.id', '=', 'sc.student_id')
-                ->select('sc.status')
-                ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") != 0')
-                ->count()
+            'all' => [
+                'positive' => $this->baseQuery()
+                    ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") = 1')
+                    ->count(),
+                'negative' => $this->baseQuery()
+                    ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") = 2')
+                    ->count(),
+                'total' => $this->baseQuery()
+                    ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") != 0')
+                    ->count()
+            ],
+            'bornPlace' => [
+                'first' => [
+                    'positive' => $this->baseQuery()
+                        ->whereRaw('JSON_EXTRACT(s.born_data, "$.born_place") = 1')
+                        ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") = 1')
+                        ->count(),
+                    'negative' => $this->baseQuery()
+                        ->whereRaw('JSON_EXTRACT(s.born_data, "$.born_place") = 1')
+                        ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") = 2')
+                        ->count(),
+                    'total' => $this->baseQuery()
+                        ->whereRaw('JSON_EXTRACT(s.born_data, "$.born_place") = 1')
+                        ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") != 0')
+                        ->count()
+                ],
+                'second' => [
+                    'positive' => $this->baseQuery()
+                        ->whereRaw('JSON_EXTRACT(s.born_data, "$.born_place") = 2')
+                        ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") = 1')
+                        ->count(),
+                    'negative' => $this->baseQuery()
+                        ->whereRaw('JSON_EXTRACT(s.born_data, "$.born_place") = 2')
+                        ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") = 2')
+                        ->count(),
+                    'total' => $this->baseQuery()
+                        ->whereRaw('JSON_EXTRACT(s.born_data, "$.born_place") = 2')
+                        ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") != 0')
+                        ->count()
+                ]
+            ],
+            'gender' => [
+                'first' => [
+                    'positive' => $this->baseQuery()
+                        ->where('gender', '=', 1)
+                        ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") = 1')
+                        ->count(),
+                    'negative' => $this->baseQuery()
+                        ->where('gender', '=', 1)
+                        ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") = 2')
+                        ->count(),
+                    'total' => $this->baseQuery()
+                        ->where('gender', '=', 1)
+                        ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") != 0')
+                        ->count(),
+                ],  
+                'second' => [
+                    'positive' => $this->baseQuery()
+                        ->where('gender', '=', 2)
+                        ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") = 1')
+                        ->count(),
+                    'negative' => $this->baseQuery()
+                        ->where('gender', '=', 2)
+                        ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") = 2')
+                        ->count(),
+                    'total' => $this->baseQuery()
+                        ->where('gender', '=', 2)
+                        ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") != 0')
+                        ->count(),
+                ]  
+            ],
+            'gpa1' => [
+                'first' => [
+                    'positive' => $this->baseQuery()
+                        ->whereRaw('JSON_EXTRACT(sc.gpa, "$.first") = 1')
+                        ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") = 1')
+                        ->count(),
+                    'negative' => $this->baseQuery()
+                        ->whereRaw('JSON_EXTRACT(sc.gpa, "$.first") = 1')
+                        ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") = 2')
+                        ->count(),
+                    'total' => $this->baseQuery()
+                        ->whereRaw('JSON_EXTRACT(sc.gpa, "$.first") = 1')
+                        ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") != 0')
+                        ->count(),
+                ],
+                'second' => [
+                    'positive' => $this->baseQuery()
+                        ->whereRaw('JSON_EXTRACT(sc.gpa, "$.first") = 2')
+                        ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") = 1')
+                        ->count(),
+                    'negative' => $this->baseQuery()
+                        ->whereRaw('JSON_EXTRACT(sc.gpa, "$.first") = 2')
+                        ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") = 2')
+                        ->count(),
+                    'total' => $this->baseQuery()
+                        ->whereRaw('JSON_EXTRACT(sc.gpa, "$.first") = 2')
+                        ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") != 0')
+                        ->count(),
+                ],
+                'third' => [
+                    'positive' => $this->baseQuery()
+                        ->whereRaw('JSON_EXTRACT(sc.gpa, "$.first") = 3')
+                        ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") = 1')
+                        ->count(),
+                    'negative' => $this->baseQuery()
+                        ->whereRaw('JSON_EXTRACT(sc.gpa, "$.first") = 3')
+                        ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") = 2')
+                        ->count(),
+                    'total' => $this->baseQuery()
+                        ->whereRaw('JSON_EXTRACT(sc.gpa, "$.first") = 3')
+                        ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") != 0')
+                        ->count(),
+                ],
+            ],
+            'gpa2' => [
+                'first' => [
+                    'positive' => $this->baseQuery()
+                        ->whereRaw('JSON_EXTRACT(sc.gpa, "$.second") = 1')
+                        ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") = 1')
+                        ->count(),
+                    'negative' => $this->baseQuery()
+                        ->whereRaw('JSON_EXTRACT(sc.gpa, "$.second") = 1')
+                        ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") = 2')
+                        ->count(),
+                    'total' => $this->baseQuery()
+                        ->whereRaw('JSON_EXTRACT(sc.gpa, "$.second") = 1')
+                        ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") != 0')
+                        ->count(),
+                ],
+                'second' => [
+                    'positive' => $this->baseQuery()
+                        ->whereRaw('JSON_EXTRACT(sc.gpa, "$.second") = 2')
+                        ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") = 1')
+                        ->count(),
+                    'negative' => $this->baseQuery()
+                        ->whereRaw('JSON_EXTRACT(sc.gpa, "$.second") = 2')
+                        ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") = 2')
+                        ->count(),
+                    'total' => $this->baseQuery()
+                        ->whereRaw('JSON_EXTRACT(sc.gpa, "$.second") = 2')
+                        ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") != 0')
+                        ->count(),
+                ],
+                'third' => [
+                    'positive' => $this->baseQuery()
+                        ->whereRaw('JSON_EXTRACT(sc.gpa, "$.second") = 3')
+                        ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") = 1')
+                        ->count(),
+                    'negative' => $this->baseQuery()
+                        ->whereRaw('JSON_EXTRACT(sc.gpa, "$.second") = 3')
+                        ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") = 2')
+                        ->count(),
+                    'total' => $this->baseQuery()
+                        ->whereRaw('JSON_EXTRACT(sc.gpa, "$.second") = 3')
+                        ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") != 0')
+                        ->count(),
+                ],
+            ],
+            'gpa3' => [
+                'first' => [
+                    'positive' => $this->baseQuery()
+                        ->whereRaw('JSON_EXTRACT(sc.gpa, "$.third") = 1')
+                        ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") = 1')
+                        ->count(),
+                    'negative' => $this->baseQuery()
+                        ->whereRaw('JSON_EXTRACT(sc.gpa, "$.third") = 1')
+                        ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") = 2')
+                        ->count(),
+                    'total' => $this->baseQuery()
+                        ->whereRaw('JSON_EXTRACT(sc.gpa, "$.third") = 1')
+                        ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") != 0')
+                        ->count(),
+                ],
+                'second' => [
+                    'positive' => $this->baseQuery()
+                        ->whereRaw('JSON_EXTRACT(sc.gpa, "$.third") = 2')
+                        ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") = 1')
+                        ->count(),
+                    'negative' => $this->baseQuery()
+                        ->whereRaw('JSON_EXTRACT(sc.gpa, "$.third") = 2')
+                        ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") = 2')
+                        ->count(),
+                    'total' => $this->baseQuery()
+                        ->whereRaw('JSON_EXTRACT(sc.gpa, "$.third") = 2')
+                        ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") != 0')
+                        ->count(),
+                ],
+                'third' => [
+                    'positive' => $this->baseQuery()
+                        ->whereRaw('JSON_EXTRACT(sc.gpa, "$.third") = 3')
+                        ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") = 1')
+                        ->count(),
+                    'negative' => $this->baseQuery()
+                        ->whereRaw('JSON_EXTRACT(sc.gpa, "$.third") = 3')
+                        ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") = 2')
+                        ->count(),
+                    'total' => $this->baseQuery()
+                        ->whereRaw('JSON_EXTRACT(sc.gpa, "$.third") = 3')
+                        ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") != 0')
+                        ->count(),
+                ],
+            ],
+            'gpa4' => [
+                'first' => [
+                    'positive' => $this->baseQuery()
+                        ->whereRaw('JSON_EXTRACT(sc.gpa, "$.fourth") = 1')
+                        ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") = 1')
+                        ->count(),
+                    'negative' => $this->baseQuery()
+                        ->whereRaw('JSON_EXTRACT(sc.gpa, "$.fourth") = 1')
+                        ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") = 2')
+                        ->count(),
+                    'total' => $this->baseQuery()
+                        ->whereRaw('JSON_EXTRACT(sc.gpa, "$.fourth") = 1')
+                        ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") != 0')
+                        ->count(),
+                ],
+                'second' => [
+                    'positive' => $this->baseQuery()
+                        ->whereRaw('JSON_EXTRACT(sc.gpa, "$.fourth") = 2')
+                        ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") = 1')
+                        ->count(),
+                    'negative' => $this->baseQuery()
+                        ->whereRaw('JSON_EXTRACT(sc.gpa, "$.fourth") = 2')
+                        ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") = 2')
+                        ->count(),
+                    'total' => $this->baseQuery()
+                        ->whereRaw('JSON_EXTRACT(sc.gpa, "$.fourth") = 2')
+                        ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") != 0')
+                        ->count(),
+                ],
+                'third' => [
+                    'positive' => $this->baseQuery()
+                        ->whereRaw('JSON_EXTRACT(sc.gpa, "$.fourth") = 3')
+                        ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") = 1')
+                        ->count(),
+                    'negative' => $this->baseQuery()
+                        ->whereRaw('JSON_EXTRACT(sc.gpa, "$.fourth") = 3')
+                        ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") = 2')
+                        ->count(),
+                    'total' => $this->baseQuery()
+                        ->whereRaw('JSON_EXTRACT(sc.gpa, "$.fourth") = 3')
+                        ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") != 0')
+                        ->count(),
+                ],
+            ],
+            'gpa5' => [
+                'first' => [
+                    'positive' => $this->baseQuery()
+                        ->whereRaw('JSON_EXTRACT(sc.gpa, "$.fifth") = 1')
+                        ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") = 1')
+                        ->count(),
+                    'negative' => $this->baseQuery()
+                        ->whereRaw('JSON_EXTRACT(sc.gpa, "$.fifth") = 1')
+                        ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") = 2')
+                        ->count(),
+                    'total' => $this->baseQuery()
+                        ->whereRaw('JSON_EXTRACT(sc.gpa, "$.fifth") = 1')
+                        ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") != 0')
+                        ->count(),
+                ],
+                'second' => [
+                    'positive' => $this->baseQuery()
+                        ->whereRaw('JSON_EXTRACT(sc.gpa, "$.fifth") = 2')
+                        ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") = 1')
+                        ->count(),
+                    'negative' => $this->baseQuery()
+                        ->whereRaw('JSON_EXTRACT(sc.gpa, "$.fifth") = 2')
+                        ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") = 2')
+                        ->count(),
+                    'total' => $this->baseQuery()
+                        ->whereRaw('JSON_EXTRACT(sc.gpa, "$.fifth") = 2')
+                        ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") != 0')
+                        ->count(),
+                ],
+                'third' => [
+                    'positive' => $this->baseQuery()
+                        ->whereRaw('JSON_EXTRACT(sc.gpa, "$.fifth") = 3')
+                        ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") = 1')
+                        ->count(),
+                    'negative' => $this->baseQuery()
+                        ->whereRaw('JSON_EXTRACT(sc.gpa, "$.fifth") = 3')
+                        ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") = 2')
+                        ->count(),
+                    'total' => $this->baseQuery()
+                        ->whereRaw('JSON_EXTRACT(sc.gpa, "$.fifth") = 3')
+                        ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") != 0')
+                        ->count(),
+                ],
+            ],
+            'gpa6' => [
+                'first' => [
+                    'positive' => $this->baseQuery()
+                        ->whereRaw('JSON_EXTRACT(sc.gpa, "$.sixth") = 1')
+                        ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") = 1')
+                        ->count(),
+                    'negative' => $this->baseQuery()
+                        ->whereRaw('JSON_EXTRACT(sc.gpa, "$.sixth") = 1')
+                        ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") = 2')
+                        ->count(),
+                    'total' => $this->baseQuery()
+                        ->whereRaw('JSON_EXTRACT(sc.gpa, "$.sixth") = 1')
+                        ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") != 0')
+                        ->count(),
+                ],
+                'second' => [
+                    'positive' => $this->baseQuery()
+                        ->whereRaw('JSON_EXTRACT(sc.gpa, "$.sixth") = 2')
+                        ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") = 1')
+                        ->count(),
+                    'negative' => $this->baseQuery()
+                        ->whereRaw('JSON_EXTRACT(sc.gpa, "$.sixth") = 2')
+                        ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") = 2')
+                        ->count(),
+                    'total' => $this->baseQuery()
+                        ->whereRaw('JSON_EXTRACT(sc.gpa, "$.sixth") = 2')
+                        ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") != 0')
+                        ->count(),
+                ],
+                'third' => [
+                    'positive' => $this->baseQuery()
+                        ->whereRaw('JSON_EXTRACT(sc.gpa, "$.sixth") = 3')
+                        ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") = 1')
+                        ->count(),
+                    'negative' => $this->baseQuery()
+                        ->whereRaw('JSON_EXTRACT(sc.gpa, "$.sixth") = 3')
+                        ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") = 2')
+                        ->count(),
+                    'total' => $this->baseQuery()
+                        ->whereRaw('JSON_EXTRACT(sc.gpa, "$.sixth") = 3')
+                        ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") != 0')
+                        ->count(),
+                ],
+            ],
+            'cc1' => [
+                'first' => [
+                    'positive' => $this->baseQuery()
+                        ->whereRaw('JSON_EXTRACT(sc.course_credit, "$.first") = 1')
+                        ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") = 1')
+                        ->count(),
+                    'negative' => $this->baseQuery()
+                        ->whereRaw('JSON_EXTRACT(sc.course_credit, "$.first") = 1')
+                        ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") = 2')
+                        ->count(),
+                    'total' => $this->baseQuery()
+                        ->whereRaw('JSON_EXTRACT(sc.course_credit, "$.first") = 1')
+                        ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") != 0')
+                        ->count()
+                ],
+                'second' => [
+                    'positive' => $this->baseQuery()
+                        ->whereRaw('JSON_EXTRACT(sc.course_credit, "$.first") = 2')
+                        ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") = 1')
+                        ->count(),
+                    'negative' => $this->baseQuery()
+                        ->whereRaw('JSON_EXTRACT(sc.course_credit, "$.first") = 2')
+                        ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") = 2')
+                        ->count(),
+                    'total' => $this->baseQuery()
+                        ->whereRaw('JSON_EXTRACT(sc.course_credit, "$.first") = 2')
+                        ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") != 0')
+                        ->count()
+                ],
+                'third' => [
+                    'positive' => $this->baseQuery()
+                        ->whereRaw('JSON_EXTRACT(sc.course_credit, "$.first") = 3')
+                        ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") = 1')
+                        ->count(),
+                    'negative' => $this->baseQuery()
+                        ->whereRaw('JSON_EXTRACT(sc.course_credit, "$.first") = 3')
+                        ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") = 2')
+                        ->count(),
+                    'total' => $this->baseQuery()
+                        ->whereRaw('JSON_EXTRACT(sc.course_credit, "$.first") = 3')
+                        ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") != 0')
+                        ->count()
+                ]
+            ],
+            'cc2' => [
+                'first' => [
+                    'positive' => $this->baseQuery()
+                        ->whereRaw('JSON_EXTRACT(sc.course_credit, "$.second") = 1')
+                        ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") = 1')
+                        ->count(),
+                    'negative' => $this->baseQuery()
+                        ->whereRaw('JSON_EXTRACT(sc.course_credit, "$.second") = 1')
+                        ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") = 2')
+                        ->count(),
+                    'total' => $this->baseQuery()
+                        ->whereRaw('JSON_EXTRACT(sc.course_credit, "$.second") = 1')
+                        ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") != 0')
+                        ->count()
+                ],
+                'second' => [
+                    'positive' => $this->baseQuery()
+                        ->whereRaw('JSON_EXTRACT(sc.course_credit, "$.second") = 2')
+                        ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") = 1')
+                        ->count(),
+                    'negative' => $this->baseQuery()
+                        ->whereRaw('JSON_EXTRACT(sc.course_credit, "$.second") = 2')
+                        ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") = 2')
+                        ->count(),
+                    'total' => $this->baseQuery()
+                        ->whereRaw('JSON_EXTRACT(sc.course_credit, "$.second") = 2')
+                        ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") != 0')
+                        ->count()
+                ],
+                'third' => [
+                    'positive' => $this->baseQuery()
+                        ->whereRaw('JSON_EXTRACT(sc.course_credit, "$.second") = 3')
+                        ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") = 1')
+                        ->count(),
+                    'negative' => $this->baseQuery()
+                        ->whereRaw('JSON_EXTRACT(sc.course_credit, "$.second") = 3')
+                        ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") = 2')
+                        ->count(),
+                    'total' => $this->baseQuery()
+                        ->whereRaw('JSON_EXTRACT(sc.course_credit, "$.second") = 3')
+                        ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") != 0')
+                        ->count()
+                ]
+            ],
+            'cc3' => [
+                'first' => [
+                    'positive' => $this->baseQuery()
+                        ->whereRaw('JSON_EXTRACT(sc.course_credit, "$.third") = 1')
+                        ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") = 1')
+                        ->count(),
+                    'negative' => $this->baseQuery()
+                        ->whereRaw('JSON_EXTRACT(sc.course_credit, "$.third") = 1')
+                        ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") = 2')
+                        ->count(),
+                    'total' => $this->baseQuery()
+                        ->whereRaw('JSON_EXTRACT(sc.course_credit, "$.third") = 1')
+                        ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") != 0')
+                        ->count()
+                ],
+                'second' => [
+                    'positive' => $this->baseQuery()
+                        ->whereRaw('JSON_EXTRACT(sc.course_credit, "$.third") = 2')
+                        ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") = 1')
+                        ->count(),
+                    'negative' => $this->baseQuery()
+                        ->whereRaw('JSON_EXTRACT(sc.course_credit, "$.third") = 2')
+                        ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") = 2')
+                        ->count(),
+                    'total' => $this->baseQuery()
+                        ->whereRaw('JSON_EXTRACT(sc.course_credit, "$.third") = 2')
+                        ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") != 0')
+                        ->count()
+                ],
+                'third' => [
+                    'positive' => $this->baseQuery()
+                        ->whereRaw('JSON_EXTRACT(sc.course_credit, "$.third") = 3')
+                        ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") = 1')
+                        ->count(),
+                    'negative' => $this->baseQuery()
+                        ->whereRaw('JSON_EXTRACT(sc.course_credit, "$.third") = 3')
+                        ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") = 2')
+                        ->count(),
+                    'total' => $this->baseQuery()
+                        ->whereRaw('JSON_EXTRACT(sc.course_credit, "$.third") = 3')
+                        ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") != 0')
+                        ->count()
+                ]
+            ],
+            'cc4' => [
+                'first' => [
+                    'positive' => $this->baseQuery()
+                        ->whereRaw('JSON_EXTRACT(sc.course_credit, "$.fourth") = 1')
+                        ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") = 1')
+                        ->count(),
+                    'negative' => $this->baseQuery()
+                        ->whereRaw('JSON_EXTRACT(sc.course_credit, "$.fourth") = 1')
+                        ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") = 2')
+                        ->count(),
+                    'total' => $this->baseQuery()
+                        ->whereRaw('JSON_EXTRACT(sc.course_credit, "$.fourth") = 1')
+                        ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") != 0')
+                        ->count()
+                ],
+                'second' => [
+                    'positive' => $this->baseQuery()
+                        ->whereRaw('JSON_EXTRACT(sc.course_credit, "$.fourth") = 2')
+                        ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") = 1')
+                        ->count(),
+                    'negative' => $this->baseQuery()
+                        ->whereRaw('JSON_EXTRACT(sc.course_credit, "$.fourth") = 2')
+                        ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") = 2')
+                        ->count(),
+                    'total' => $this->baseQuery()
+                        ->whereRaw('JSON_EXTRACT(sc.course_credit, "$.fourth") = 2')
+                        ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") != 0')
+                        ->count()
+                ],
+                'third' => [
+                    'positive' => $this->baseQuery()
+                        ->whereRaw('JSON_EXTRACT(sc.course_credit, "$.fourth") = 3')
+                        ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") = 1')
+                        ->count(),
+                    'negative' => $this->baseQuery()
+                        ->whereRaw('JSON_EXTRACT(sc.course_credit, "$.fourth") = 3')
+                        ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") = 2')
+                        ->count(),
+                    'total' => $this->baseQuery()
+                        ->whereRaw('JSON_EXTRACT(sc.course_credit, "$.fourth") = 3')
+                        ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") != 0')
+                        ->count()
+                ]
+            ],
+            'cc5' => [
+                'first' => [
+                    'positive' => $this->baseQuery()
+                        ->whereRaw('JSON_EXTRACT(sc.course_credit, "$.fifth") = 1')
+                        ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") = 1')
+                        ->count(),
+                    'negative' => $this->baseQuery()
+                        ->whereRaw('JSON_EXTRACT(sc.course_credit, "$.fifth") = 1')
+                        ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") = 2')
+                        ->count(),
+                    'total' => $this->baseQuery()
+                        ->whereRaw('JSON_EXTRACT(sc.course_credit, "$.fifth") = 1')
+                        ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") != 0')
+                        ->count()
+                ],
+                'second' => [
+                    'positive' => $this->baseQuery()
+                        ->whereRaw('JSON_EXTRACT(sc.course_credit, "$.fifth") = 2')
+                        ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") = 1')
+                        ->count(),
+                    'negative' => $this->baseQuery()
+                        ->whereRaw('JSON_EXTRACT(sc.course_credit, "$.fifth") = 2')
+                        ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") = 2')
+                        ->count(),
+                    'total' => $this->baseQuery()
+                        ->whereRaw('JSON_EXTRACT(sc.course_credit, "$.fifth") = 2')
+                        ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") != 0')
+                        ->count()
+                ],
+                'third' => [
+                    'positive' => $this->baseQuery()
+                        ->whereRaw('JSON_EXTRACT(sc.course_credit, "$.fifth") = 3')
+                        ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") = 1')
+                        ->count(),
+                    'negative' => $this->baseQuery()
+                        ->whereRaw('JSON_EXTRACT(sc.course_credit, "$.fifth") = 3')
+                        ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") = 2')
+                        ->count(),
+                    'total' => $this->baseQuery()
+                        ->whereRaw('JSON_EXTRACT(sc.course_credit, "$.fifth") = 3')
+                        ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") != 0')
+                        ->count()
+                ]
+            ],
+            'cc6' => [
+                'first' => [
+                    'positive' => $this->baseQuery()
+                        ->whereRaw('JSON_EXTRACT(sc.course_credit, "$.sixth") = 1')
+                        ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") = 1')
+                        ->count(),
+                    'negative' => $this->baseQuery()
+                        ->whereRaw('JSON_EXTRACT(sc.course_credit, "$.sixth") = 1')
+                        ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") = 2')
+                        ->count(),
+                    'total' => $this->baseQuery()
+                        ->whereRaw('JSON_EXTRACT(sc.course_credit, "$.sixth") = 1')
+                        ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") != 0')
+                        ->count()
+                ],
+                'second' => [
+                    'positive' => $this->baseQuery()
+                        ->whereRaw('JSON_EXTRACT(sc.course_credit, "$.sixth") = 2')
+                        ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") = 1')
+                        ->count(),
+                    'negative' => $this->baseQuery()
+                        ->whereRaw('JSON_EXTRACT(sc.course_credit, "$.sixth") = 2')
+                        ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") = 2')
+                        ->count(),
+                    'total' => $this->baseQuery()
+                        ->whereRaw('JSON_EXTRACT(sc.course_credit, "$.sixth") = 2')
+                        ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") != 0')
+                        ->count()
+                ],
+                'third' => [
+                    'positive' => $this->baseQuery()
+                        ->whereRaw('JSON_EXTRACT(sc.course_credit, "$.sixth") = 3')
+                        ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") = 1')
+                        ->count(),
+                    'negative' => $this->baseQuery()
+                        ->whereRaw('JSON_EXTRACT(sc.course_credit, "$.sixth") = 3')
+                        ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") = 2')
+                        ->count(),
+                    'total' => $this->baseQuery()
+                        ->whereRaw('JSON_EXTRACT(sc.course_credit, "$.sixth") = 3')
+                        ->whereRaw('JSON_EXTRACT(sc.status, "$.numeric") != 0')
+                        ->count()
+                ]
+            ],
         ];
 
         return $totalData;
