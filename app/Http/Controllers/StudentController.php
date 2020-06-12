@@ -51,49 +51,78 @@ class StudentController extends Controller
                     continue;
                 }
 
-                $student = DB::table('students')
-                ->insertGetId([
-                    'study_program' => $line[0],
-                    'year_class' => (int) $line[1],
-                    'born_data' => json_encode([
-                        'born_place' => $this->filterBornPlace($line[2]),
-                        'born_date' => $line[3]
-                    ]),
-                    'religion' => $line[4],
-                    'gender' => $this->filterGender($line[5]),
-                    'address' => $line[6],
-                    'parent_data' => json_encode([
-                        'father_education' => $this->filterEducation($line[7]),
-                        'mother_education' => $this->filterEducation($line[8]),
-                        'father_job' => $line[9],
-                        'mother_job' => $line[10]
-                    ])
-                ]);
-                
-                DB::table('scores')
-                ->insert([
-                    'student_id' => $student,
-                    'gpa' => json_encode([
-                        'first' => $this->filterGpa((float) $line[11]),
-                        'second' => $this->filterGpa((float) $line[12]),
-                        'third' => $this->filterGpa((float) $line[13]),
-                        'fourth' => $this->filterGpa((float) $line[14]),
-                        'fifth' => $this->filterGpa((float) $line[15]),
-                        'sixth' => $this->filterGpa((float) $line[16])
-                    ]),
-                    'course_credit' => json_encode([
-                        'first' => $this->filterCourseCredit((int) $line[17]),
-                        'second' => $this->filterCourseCredit((int) $line[18]),
-                        'third' => $this->filterCourseCredit((int) $line[19]),
-                        'fourth' => $this->filterCourseCredit((int) $line[20]),
-                        'fifth' => $this->filterCourseCredit((int) $line[21]),
-                        'sixth' => $this->filterCourseCredit((int) $line[22])
-                    ]),
-                    'status' => json_encode([
-                        'numeric' => $this->filterStatus($line[23]),
-                        'text' => $line[23]
-                    ])
-                ]);
+                if (
+                    ($line[0] != NULL && $line[0] != "") && 
+                    ($line[1] != NULL && $line[1] != "") && 
+                    ($line[2] != NULL && $line[2] != "") && 
+                    ($line[3] != NULL && $line[3] != "") && 
+                    ($line[4] != NULL && $line[4] != "") && 
+                    ($line[5] != NULL && $line[5] != "") && 
+                    ($line[6] != NULL && $line[6] != "") && 
+                    ($line[7] != NULL && $line[7] != "") && 
+                    ($line[8] != NULL && $line[8] != "") && 
+                    ($line[9] != NULL && $line[9] != "") && 
+                    ($line[10] != NULL && $line[10] != "") && 
+                    ($line[11] != NULL && $line[11] != "" && (float) $line[11] <= 4 && (float) $line[11] >= 0) && 
+                    ($line[12] != NULL && $line[12] != "" && (float) $line[12] <= 4 && (float) $line[12] >= 0) && 
+                    ($line[13] != NULL && $line[13] != "" && (float) $line[13] <= 4 && (float) $line[13] >= 0) && 
+                    ($line[14] != NULL && $line[14] != "" && (float) $line[14] <= 4 && (float) $line[14] >= 0) && 
+                    ($line[15] != NULL && $line[15] != "" && (float) $line[15] <= 4 && (float) $line[15] >= 0) && 
+                    ($line[16] != NULL && $line[16] != "" && (float) $line[16] <= 4 && (float) $line[16] >= 0) && 
+                    ($line[17] != NULL && $line[17] != "" && (int) $line[17] <= 24 && (int) $line[17] > 0) && 
+                    ($line[18] != NULL && $line[18] != "" && (int) $line[18] <= 24 && (int) $line[18] > 0) && 
+                    ($line[19] != NULL && $line[19] != "" && (int) $line[19] <= 24 && (int) $line[19] > 0) && 
+                    ($line[20] != NULL && $line[20] != "" && (int) $line[20] <= 24 && (int) $line[20] > 0) && 
+                    ($line[21] != NULL && $line[21] != "" && (int) $line[21] <= 24 && (int) $line[21] > 0) && 
+                    ($line[22] != NULL && $line[22] != "" && (int) $line[22] <= 24 && (int) $line[22] > 0) && 
+                    ($line[23] != NULL && $line[23] != "") 
+
+                ) {
+                    $student = DB::table('students')
+                    ->insertGetId([
+                        'study_program' => $line[0],
+                        'year_class' => (int) $line[1],
+                        'born_data' => json_encode([
+                            'born_place' => $this->filterBornPlace($line[2]),
+                            'born_date' => $line[3]
+                        ]),
+                        'religion' => $line[4],
+                        'gender' => $this->filterGender($line[5]),
+                        'address' => $line[6],
+                        'parent_data' => json_encode([
+                            'father_education' => $this->filterEducation($line[7]),
+                            'mother_education' => $this->filterEducation($line[8]),
+                            'father_job' => $line[9],
+                            'mother_job' => $line[10]
+                        ])
+                    ]);
+                    
+                    DB::table('scores')
+                    ->insert([
+                        'student_id' => $student,
+                        'gpa' => json_encode([
+                            'first' => $this->filterGpa((float) $line[11]),
+                            'second' => $this->filterGpa((float) $line[12]),
+                            'third' => $this->filterGpa((float) $line[13]),
+                            'fourth' => $this->filterGpa((float) $line[14]),
+                            'fifth' => $this->filterGpa((float) $line[15]),
+                            'sixth' => $this->filterGpa((float) $line[16])
+                        ]),
+                        'course_credit' => json_encode([
+                            'first' => $this->filterCourseCredit((int) $line[17]),
+                            'second' => $this->filterCourseCredit((int) $line[18]),
+                            'third' => $this->filterCourseCredit((int) $line[19]),
+                            'fourth' => $this->filterCourseCredit((int) $line[20]),
+                            'fifth' => $this->filterCourseCredit((int) $line[21]),
+                            'sixth' => $this->filterCourseCredit((int) $line[22])
+                        ]),
+                        'status' => json_encode([
+                            'numeric' => $this->filterStatus($line[23]),
+                            'text' => $line[23]
+                        ])
+                    ]);
+                }
+
             }
             DB::commit();
         } catch (\Exception $e) {
