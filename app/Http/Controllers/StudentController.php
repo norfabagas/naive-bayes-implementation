@@ -141,26 +141,174 @@ class StudentController extends Controller
      */
     public function test(Request $request)
     {
-        $result = [];
-        if (isset($request->_token)) {
-            $bornPlace = $request->born_place;
-            $gender = $request->gender;
-            $gpa1 = $request->gpa_1;
-            $gpa2 = $request->gpa_2;
-            $gpa3 = $request->gpa_3;
-            $gpa4 = $request->gpa_4;
-            $gpa5 = $request->gpa_5;
-            $gpa6 = $request->gpa_6;
-            $cc1 = $request->cc_1;
-            $cc2 = $request->cc_2;
-            $cc3 = $request->cc_3;
-            $cc4 = $request->cc_4;
-            $cc5 = $request->cc_5;
-            $cc6 = $request->cc_6;
-        }
+        $statistics = $this->getStatistics();
 
-        return view('students.test')
-            ->with('result', $result);
+        if (isset($request->_token)) {
+            $all = [
+                'positive' => $statistics['all']['positive'] + 1,
+                'negative' => $statistics['all']['negative'] + 1,
+                'total' => $statistics['all']['total'] + 2,
+            ];
+
+            $bornPlace = [
+                'result' => $request->born_place,
+                'positive' => ($statistics['bornPlace'][$request->born_place]['positive'] + 1) / $all['positive'],
+                'negative' => ($statistics['bornPlace'][$request->born_place]['negative'] + 1) / $all['negative'],
+                'total' => $statistics['bornPlace'][$request->born_place]['total'] + 2
+            ];
+
+            $gender = [
+                'result' => $request->gender,
+                'positive' => ($statistics['gender'][$request->gender]['positive'] + 1) / $all['positive'],
+                'negative' => ($statistics['gender'][$request->gender]['negative'] + 1) / $all['negative'],
+                'total' => $statistics['gender'][$request->gender]['total'] + 2
+            ];
+
+            $gpa1 = [
+                'result' => $request->gpa_1,
+                'positive' => ($statistics['gpa1'][$request->gpa_1]['positive'] + 1) / $all['positive'],
+                'negative' => ($statistics['gpa1'][$request->gpa_1]['negative'] + 1) / $all['negative'],
+                'total' => $statistics['gpa1'][$request->gpa_1]['total'] + 2
+            ];
+
+            $gpa2 = [
+                'result' => $request->gpa_2,
+                'positive' => ($statistics['gpa2'][$request->gpa_2]['positive'] + 1) / $all['positive'],
+                'negative' => ($statistics['gpa2'][$request->gpa_2]['negative'] + 1) / $all['negative'],
+                'total' => $statistics['gpa2'][$request->gpa_2]['total'] + 2
+            ];
+
+            $gpa3 = [
+                'result' => $request->gpa_3,
+                'positive' => ($statistics['gpa3'][$request->gpa_3]['positive'] + 1) / $all['positive'],
+                'negative' => ($statistics['gpa3'][$request->gpa_3]['negative'] + 1) / $all['negative'],
+                'total' => $statistics['gpa3'][$request->gpa_3]['total'] + 2
+            ];
+            
+            $gpa4 = [
+                'result' => $request->gpa_4,
+                'positive' => ($statistics['gpa4'][$request->gpa_4]['positive'] + 1) / $all['positive'],
+                'negative' => ($statistics['gpa4'][$request->gpa_4]['negative'] + 1) / $all['negative'],
+                'total' => $statistics['gpa4'][$request->gpa_4]['total'] + 2
+            ];
+            
+            $gpa5 = [
+                'result' => $request->gpa_5,
+                'positive' => ($statistics['gpa5'][$request->gpa_5]['positive'] + 1) / $all['positive'],
+                'negative' => ($statistics['gpa5'][$request->gpa_5]['negative'] + 1) / $all['negative'],
+                'total' => $statistics['gpa5'][$request->gpa_5]['total'] + 2
+            ];
+            
+            $gpa6 = [
+                'result' => $request->gpa_6,
+                'positive' => ($statistics['gpa6'][$request->gpa_6]['positive'] + 1) / $all['positive'],
+                'negative' => ($statistics['gpa6'][$request->gpa_6]['negative'] + 1) / $all['negative'],
+                'total' => $statistics['gpa6'][$request->gpa_6]['total'] + 2
+            ];
+
+            $cc1 = [
+                'result' => $request->cc_1,
+                'positive' => ($statistics['cc1'][$request->cc_1]['positive'] + 1) / $all['positive'],
+                'negative' => ($statistics['cc1'][$request->cc_1]['negative'] + 1) / $all['negative'],
+                'total' => $statistics['cc1'][$request->cc_1]['total'] + 2
+            ];
+            
+            $cc2 = [
+                'result' => $request->cc_2,
+                'positive' => ($statistics['cc2'][$request->cc_2]['positive'] + 1) / $all['positive'],
+                'negative' => ($statistics['cc2'][$request->cc_2]['negative'] + 1) / $all['negative'],
+                'total' => $statistics['cc2'][$request->cc_2]['total'] + 2
+            ];
+
+            $cc3 = [
+                'result' => $request->cc_3,
+                'positive' => ($statistics['cc3'][$request->cc_3]['positive'] + 1) / $all['positive'],
+                'negative' => ($statistics['cc3'][$request->cc_3]['negative'] + 1) / $all['negative'],
+                'total' => $statistics['cc3'][$request->cc_3]['total'] + 2
+            ];
+
+            $cc4 = [
+                'result' => $request->cc_4,
+                'positive' => ($statistics['cc4'][$request->cc_4]['positive'] + 1) / $all['positive'],
+                'negative' => ($statistics['cc4'][$request->cc_4]['negative'] + 1) / $all['negative'],
+                'total' => $statistics['cc4'][$request->cc_4]['total'] + 2
+            ];
+
+            $cc5 = [
+                'result' => $request->cc_5,
+                'positive' => ($statistics['cc5'][$request->cc_5]['positive'] + 1) / $all['positive'],
+                'negative' => ($statistics['cc5'][$request->cc_5]['negative'] + 1) / $all['negative'],
+                'total' => $statistics['cc5'][$request->cc_5]['total'] + 2
+            ];
+
+            $cc6 = [
+                'result' => $request->cc_6,
+                'positive' => ($statistics['cc6'][$request->cc_6]['positive'] + 1) / $all['positive'],
+                'negative' => ($statistics['cc6'][$request->cc_6]['negative'] + 1) / $all['negative'],
+                'total' => $statistics['cc6'][$request->cc_6]['total'] + 2
+            ];
+
+            $result = [
+                'all' => $all,
+                'bornPlace' => $bornPlace,
+                'gender' => $gender,
+                'gpa1' => $gpa1,
+                'gpa2' => $gpa2,
+                'gpa3' => $gpa3,
+                'gpa4' => $gpa4,
+                'gpa5' => $gpa5,
+                'gpa6' => $gpa6,
+                'cc1' => $cc1,
+                'cc2' => $cc2,
+                'cc3' => $cc3,
+                'cc4' => $cc4,
+                'cc5' => $cc5,
+                'cc6' => $cc6,
+                'p' => [
+                    'positive' => ($bornPlace['positive'] * 
+                        $gender['positive'] *
+                        $gpa1['positive'] * 
+                        $gpa2['positive'] * 
+                        $gpa3['positive'] * 
+                        $gpa4['positive'] * 
+                        $gpa5['positive'] * 
+                        $gpa6['positive'] *
+                        $cc1['positive'] *
+                        $cc2['positive'] *
+                        $cc3['positive'] *
+                        $cc4['positive'] *
+                        $cc5['positive'] *
+                        $cc6['positive']) *
+                        ($all['positive'] / $all['total']),
+                    'negative' => $bornPlace['negative'] * 
+                        $gender['negative'] * 
+                        $gpa1['negative'] * 
+                        $gpa2['negative'] * 
+                        $gpa3['negative'] * 
+                        $gpa4['negative'] * 
+                        $gpa5['negative'] * 
+                        $gpa6['negative'] *
+                        $cc1['negative'] *
+                        $cc2['negative'] *
+                        $cc3['negative'] *
+                        $cc4['negative'] *
+                        $cc5['negative'] *
+                        $cc6['negative'] *
+                        ($all['negative'] / $all['total'])
+                ]
+            ];
+
+            $decision = [
+                'positive' => round(($result['p']['positive'] / ($result['p']['positive'] + $result['p']['negative'])) * 100, 2),
+                'negative' => round(($result['p']['negative'] / ($result['p']['positive'] + $result['p']['negative'])) * 100, 2)
+            ];
+
+            return view('students.test')
+                ->with('result', $result)
+                ->with('decision', $decision);
+        } else {
+            return view('students.test');
+        }
     }
 
     /**
