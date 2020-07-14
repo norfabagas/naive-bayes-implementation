@@ -4,14 +4,14 @@
 <div class="row">
     <div class="col-md-12">
         <div class="card">
-            <div class="card-header">{{ __('Statistics') }}</div>
+            <div class="card-header">{{ __('Statistik Data Latih') }}</div>
         </div>
         <div class="card-body">
             <table class="table table-hover table-responsive">
                 <thead>
                     <tr>
-                        <th>{{ __('Graduated') }}</th>
-                        <th>{{ __('Not Graduated') }}</th>
+                        <th>{{ __('Lulus') }}</th>
+                        <th>{{ __('Belum Lulus') }}</th>
                         <th>{{ __('Total') }}</th>
                     </tr>
                 </thead>
@@ -34,26 +34,26 @@
 <div class="row">
     <div class="col-md-6">
         <div class="card">
-            <div class="card-header">{{ __('Born Place') }}</div>
+            <div class="card-header">{{ __('Tempat Lahir') }}</div>
             <div class="card-body">
                 <table class="table table-hover table-responsive">
                     <thead>
                         <tr>
-                            <th>{{ __('Category') }}</th>
-                            <th>{{ __('Graduated') }}</th>
-                            <th>{{ __('Not Graduated') }}</th>
+                            <th>{{ __('Kategori') }}</th>
+                            <th>{{ __('Lulus') }}</th>
+                            <th>{{ __('Belum Lulus') }}</th>
                             <th>{{ __('Total') }}</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>{{ __('Outside the City') }}</td>
+                            <td>{{ __('Luar Kota') }}</td>
                             <td>{{ $statistics['bornPlace']['first']['positive'] }}</td>
                             <td>{{ $statistics['bornPlace']['first']['negative'] }}</td>
                             <td>{{ $statistics['bornPlace']['first']['total'] }}</td>
                         </tr>
                         <tr>
-                            <td>{{ __('Inside the City') }}</td>
+                            <td>{{ __('Dalam Kota') }}</td>
                             <td>{{ $statistics['bornPlace']['second']['positive'] }}</td>
                             <td>{{ $statistics['bornPlace']['second']['negative'] }}</td>
                             <td>{{ $statistics['bornPlace']['second']['total'] }}</td>
@@ -74,26 +74,26 @@
 
     <div class="col-md-6">
         <div class="card">
-            <div class="card-header">{{ __('Gender') }}</div>
+            <div class="card-header">{{ __('Jenis Kelamin') }}</div>
             <div class="card-body">
                 <table class="table table-hover table-responsive">
                     <thead>
                         <tr>
-                            <th>{{ __('Category') }}</th>
-                            <th>{{ __('Graduated') }}</th>
-                            <th>{{ __('Not Graduated') }}</th>
+                            <th>{{ __('Kategori') }}</th>
+                            <th>{{ __('Lulus') }}</th>
+                            <th>{{ __('Belum Lulus') }}</th>
                             <th>{{ __('Total') }}</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>{{ __('Male') }}</td>
+                            <td>{{ __('Pria') }}</td>
                             <td>{{ $statistics['gender']['first']['positive'] }}</td>
                             <td>{{ $statistics['gender']['first']['negative'] }}</td>
                             <td>{{ $statistics['gender']['first']['total'] }}</td>
                         </tr>
                         <tr>
-                            <td>{{ __('Female') }}</td>
+                            <td>{{ __('Wanita') }}</td>
                             <td>{{ $statistics['gender']['second']['positive'] }}</td>
                             <td>{{ $statistics['gender']['second']['negative'] }}</td>
                             <td>{{ $statistics['gender']['second']['total'] }}</td>
@@ -120,32 +120,32 @@
 <div class="row">
     <div class="col-md-6">
         <div class="card">
-            <div class="card-header">{{ __('GPA #1') }}</div>
+            <div class="card-header">{{ __('IP #1') }}</div>
             <div class="card-body">
                 <table class="table table-hover table-responsive">
                     <thead>
                         <tr>
-                            <th>{{ __('Category') }}</th>
-                            <th>{{ __('Graduated') }}</th>
-                            <th>{{ __('Not Graduated') }}</th>
+                            <th>{{ __('Kategori') }}</th>
+                            <th>{{ __('Lulus') }}</th>
+                            <th>{{ __('Belum Lulus') }}</th>
                             <th>{{ __('Total') }}</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>{{ __('GPA >= 3') }}</td>
+                            <td>{{ __('IP >= 3') }}</td>
                             <td>{{ $statistics['gpa1']['third']['positive'] }}</td>
                             <td>{{ $statistics['gpa1']['third']['negative'] }}</td>
                             <td>{{ $statistics['gpa1']['third']['total'] }}</td>
                         </tr>
                         <tr>
-                            <td>{{ __('2 <= GPA < 3') }}</td>
+                            <td>{{ __('2 <= IP < 3') }}</td>
                             <td>{{ $statistics['gpa1']['second']['positive'] }}</td>
                             <td>{{ $statistics['gpa1']['second']['negative'] }}</td>
                             <td>{{ $statistics['gpa1']['second']['total'] }}</td>
                         </tr>
                         <tr>
-                            <td>{{ __('GPA < 2') }}</td>
+                            <td>{{ __('IP < 2') }}</td>
                             <td>{{ $statistics['gpa1']['first']['positive'] }}</td>
                             <td>{{ $statistics['gpa1']['first']['negative'] }}</td>
                             <td>{{ $statistics['gpa1']['first']['total'] }}</td>
@@ -165,32 +165,32 @@
     </div>
     <div class="col-md-6">
         <div class="card">
-            <div class="card-header">{{ __('GPA #2') }}</div>
+            <div class="card-header">{{ __('IP #2') }}</div>
             <div class="card-body">
                 <table class="table table-hover table-responsive">
                     <thead>
                         <tr>
-                            <th>{{ __('Category') }}</th>
-                            <th>{{ __('Graduated') }}</th>
-                            <th>{{ __('Not Graduated') }}</th>
+                            <th>{{ __('Kategori') }}</th>
+                            <th>{{ __('Lulus') }}</th>
+                            <th>{{ __('Belum Lulus') }}</th>
                             <th>{{ __('Total') }}</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>{{ __('GPA >= 3') }}</td>
+                            <td>{{ __('IP >= 3') }}</td>
                             <td>{{ $statistics['gpa2']['third']['positive'] }}</td>
                             <td>{{ $statistics['gpa2']['third']['negative'] }}</td>
                             <td>{{ $statistics['gpa2']['third']['total'] }}</td>
                         </tr>
                         <tr>
-                            <td>{{ __('2 <= GPA < 3') }}</td>
+                            <td>{{ __('2 <= IP < 3') }}</td>
                             <td>{{ $statistics['gpa2']['second']['positive'] }}</td>
                             <td>{{ $statistics['gpa2']['second']['negative'] }}</td>
                             <td>{{ $statistics['gpa2']['second']['total'] }}</td>
                         </tr>
                         <tr>
-                            <td>{{ __('GPA < 2') }}</td>
+                            <td>{{ __('IP < 2') }}</td>
                             <td>{{ $statistics['gpa2']['first']['positive'] }}</td>
                             <td>{{ $statistics['gpa2']['first']['negative'] }}</td>
                             <td>{{ $statistics['gpa2']['first']['total'] }}</td>
@@ -215,32 +215,32 @@
 <div class="row">
     <div class="col-md-6">
         <div class="card">
-            <div class="card-header">{{ __('GPA #3') }}</div>
+            <div class="card-header">{{ __('IP #3') }}</div>
             <div class="card-body">
                 <table class="table table-hover table-responsive">
                     <thead>
                         <tr>
-                            <th>{{ __('Category') }}</th>
-                            <th>{{ __('Graduated') }}</th>
-                            <th>{{ __('Not Graduated') }}</th>
+                            <th>{{ __('Kategori') }}</th>
+                            <th>{{ __('Lulus') }}</th>
+                            <th>{{ __('Belum Lulus') }}</th>
                             <th>{{ __('Total') }}</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>{{ __('GPA >= 3') }}</td>
+                            <td>{{ __('IP >= 3') }}</td>
                             <td>{{ $statistics['gpa3']['third']['positive'] }}</td>
                             <td>{{ $statistics['gpa3']['third']['negative'] }}</td>
                             <td>{{ $statistics['gpa3']['third']['total'] }}</td>
                         </tr>
                         <tr>
-                            <td>{{ __('2 <= GPA < 3') }}</td>
+                            <td>{{ __('2 <= IP < 3') }}</td>
                             <td>{{ $statistics['gpa3']['second']['positive'] }}</td>
                             <td>{{ $statistics['gpa3']['second']['negative'] }}</td>
                             <td>{{ $statistics['gpa3']['second']['total'] }}</td>
                         </tr>
                         <tr>
-                            <td>{{ __('GPA < 2') }}</td>
+                            <td>{{ __('IP < 2') }}</td>
                             <td>{{ $statistics['gpa3']['first']['positive'] }}</td>
                             <td>{{ $statistics['gpa3']['first']['negative'] }}</td>
                             <td>{{ $statistics['gpa3']['first']['total'] }}</td>
@@ -260,32 +260,32 @@
     </div>
     <div class="col-md-6">
         <div class="card">
-            <div class="card-header">{{ __('GPA #4') }}</div>
+            <div class="card-header">{{ __('IP #4') }}</div>
             <div class="card-body">
                 <table class="table table-hover table-responsive">
                     <thead>
                         <tr>
-                            <th>{{ __('Category') }}</th>
-                            <th>{{ __('Graduated') }}</th>
-                            <th>{{ __('Not Graduated') }}</th>
+                            <th>{{ __('Kategori') }}</th>
+                            <th>{{ __('Lulus') }}</th>
+                            <th>{{ __('Belum Lulus') }}</th>
                             <th>{{ __('Total') }}</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>{{ __('GPA >= 3') }}</td>
+                            <td>{{ __('IP >= 3') }}</td>
                             <td>{{ $statistics['gpa4']['third']['positive'] }}</td>
                             <td>{{ $statistics['gpa4']['third']['negative'] }}</td>
                             <td>{{ $statistics['gpa4']['third']['total'] }}</td>
                         </tr>
                         <tr>
-                            <td>{{ __('2 <= GPA < 3') }}</td>
+                            <td>{{ __('2 <= IP < 3') }}</td>
                             <td>{{ $statistics['gpa4']['second']['positive'] }}</td>
                             <td>{{ $statistics['gpa4']['second']['negative'] }}</td>
                             <td>{{ $statistics['gpa4']['second']['total'] }}</td>
                         </tr>
                         <tr>
-                            <td>{{ __('GPA < 2') }}</td>
+                            <td>{{ __('IP < 2') }}</td>
                             <td>{{ $statistics['gpa4']['first']['positive'] }}</td>
                             <td>{{ $statistics['gpa4']['first']['negative'] }}</td>
                             <td>{{ $statistics['gpa4']['first']['total'] }}</td>
@@ -310,32 +310,32 @@
 <div class="row">
     <div class="col-md-6">
         <div class="card">
-            <div class="card-header">{{ __('GPA #5') }}</div>
+            <div class="card-header">{{ __('IP #5') }}</div>
             <div class="card-body">
                 <table class="table table-hover table-responsive">
                     <thead>
                         <tr>
-                            <th>{{ __('Category') }}</th>
-                            <th>{{ __('Graduated') }}</th>
-                            <th>{{ __('Not Graduated') }}</th>
+                            <th>{{ __('Kategori') }}</th>
+                            <th>{{ __('Lulus') }}</th>
+                            <th>{{ __('Belum Lulus') }}</th>
                             <th>{{ __('Total') }}</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>{{ __('GPA >= 3') }}</td>
+                            <td>{{ __('IP >= 3') }}</td>
                             <td>{{ $statistics['gpa5']['third']['positive'] }}</td>
                             <td>{{ $statistics['gpa5']['third']['negative'] }}</td>
                             <td>{{ $statistics['gpa5']['third']['total'] }}</td>
                         </tr>
                         <tr>
-                            <td>{{ __('2 <= GPA < 3') }}</td>
+                            <td>{{ __('2 <= IP < 3') }}</td>
                             <td>{{ $statistics['gpa5']['second']['positive'] }}</td>
                             <td>{{ $statistics['gpa5']['second']['negative'] }}</td>
                             <td>{{ $statistics['gpa5']['second']['total'] }}</td>
                         </tr>
                         <tr>
-                            <td>{{ __('GPA < 2') }}</td>
+                            <td>{{ __('IP < 2') }}</td>
                             <td>{{ $statistics['gpa5']['first']['positive'] }}</td>
                             <td>{{ $statistics['gpa5']['first']['negative'] }}</td>
                             <td>{{ $statistics['gpa5']['first']['total'] }}</td>
@@ -355,32 +355,32 @@
     </div>
     <div class="col-md-6">
         <div class="card">
-            <div class="card-header">{{ __('GPA #6') }}</div>
+            <div class="card-header">{{ __('IP #6') }}</div>
             <div class="card-body">
                 <table class="table table-hover table-responsive">
                     <thead>
                         <tr>
-                            <th>{{ __('Category') }}</th>
-                            <th>{{ __('Graduated') }}</th>
-                            <th>{{ __('Not Graduated') }}</th>
+                            <th>{{ __('Kategori') }}</th>
+                            <th>{{ __('Lulus') }}</th>
+                            <th>{{ __('Belum Lulus') }}</th>
                             <th>{{ __('Total') }}</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>{{ __('GPA >= 3') }}</td>
+                            <td>{{ __('IP >= 3') }}</td>
                             <td>{{ $statistics['gpa6']['third']['positive'] }}</td>
                             <td>{{ $statistics['gpa6']['third']['negative'] }}</td>
                             <td>{{ $statistics['gpa6']['third']['total'] }}</td>
                         </tr>
                         <tr>
-                            <td>{{ __('2 <= GPA < 3') }}</td>
+                            <td>{{ __('2 <= IP < 3') }}</td>
                             <td>{{ $statistics['gpa6']['second']['positive'] }}</td>
                             <td>{{ $statistics['gpa6']['second']['negative'] }}</td>
                             <td>{{ $statistics['gpa6']['second']['total'] }}</td>
                         </tr>
                         <tr>
-                            <td>{{ __('GPA < 2') }}</td>
+                            <td>{{ __('IP < 2') }}</td>
                             <td>{{ $statistics['gpa6']['first']['positive'] }}</td>
                             <td>{{ $statistics['gpa6']['first']['negative'] }}</td>
                             <td>{{ $statistics['gpa6']['first']['total'] }}</td>
@@ -407,32 +407,32 @@
 <div class="row">
     <div class="col-md-6">
         <div class="card">
-            <div class="card-header">{{ __('Course Credit #1') }}</div>
+            <div class="card-header">{{ __('SKS #1') }}</div>
             <div class="card-body">
                 <table class="table table-hover table-responsive">
                     <thead>
                         <tr>
-                            <th>{{ __('Category') }}</th>
-                            <th>{{ __('Graduated') }}</th>
-                            <th>{{ __('Not Graduated') }}</th>
+                            <th>{{ __('Kategori') }}</th>
+                            <th>{{ __('Lulus') }}</th>
+                            <th>{{ __('Belum Lulus') }}</th>
                             <th>{{ __('Total') }}</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>{{ __('21 < CC <= 24') }}</td>
+                            <td>{{ __('21 < SKS <= 24') }}</td>
                             <td>{{ $statistics['cc1']['third']['positive'] }}</td>
                             <td>{{ $statistics['cc1']['third']['negative'] }}</td>
                             <td>{{ $statistics['cc1']['third']['total'] }}</td>
                         </tr>
                         <tr>
-                            <td>{{ __('18 <= CC <= 21') }}</td>
+                            <td>{{ __('18 <= SKS <= 21') }}</td>
                             <td>{{ $statistics['cc1']['second']['positive'] }}</td>
                             <td>{{ $statistics['cc1']['second']['negative'] }}</td>
                             <td>{{ $statistics['cc1']['second']['total'] }}</td>
                         </tr>
                         <tr>
-                            <td>{{ __('CC < 18') }}</td>
+                            <td>{{ __('SKS < 18') }}</td>
                             <td>{{ $statistics['cc1']['first']['positive'] }}</td>
                             <td>{{ $statistics['cc1']['first']['negative'] }}</td>
                             <td>{{ $statistics['cc1']['first']['total'] }}</td>
@@ -452,32 +452,32 @@
     </div>
     <div class="col-md-6">
         <div class="card">
-            <div class="card-header">{{ __('Course Credit #2') }}</div>
+            <div class="card-header">{{ __('SKS #2') }}</div>
             <div class="card-body">
                 <table class="table table-hover table-responsive">
                     <thead>
                         <tr>
-                            <th>{{ __('Category') }}</th>
-                            <th>{{ __('Graduated') }}</th>
-                            <th>{{ __('Not Graduated') }}</th>
+                            <th>{{ __('Kategori') }}</th>
+                            <th>{{ __('Lulus') }}</th>
+                            <th>{{ __('Belum Lulus') }}</th>
                             <th>{{ __('Total') }}</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>{{ __('21 < CC <= 24') }}</td>
+                            <td>{{ __('21 < SKS <= 24') }}</td>
                             <td>{{ $statistics['cc2']['third']['positive'] }}</td>
                             <td>{{ $statistics['cc2']['third']['negative'] }}</td>
                             <td>{{ $statistics['cc2']['third']['total'] }}</td>
                         </tr>
                         <tr>
-                            <td>{{ __('18 <= CC <= 21') }}</td>
+                            <td>{{ __('18 <= SKS <= 21') }}</td>
                             <td>{{ $statistics['cc2']['second']['positive'] }}</td>
                             <td>{{ $statistics['cc2']['second']['negative'] }}</td>
                             <td>{{ $statistics['cc2']['second']['total'] }}</td>
                         </tr>
                         <tr>
-                            <td>{{ __('CC < 18') }}</td>
+                            <td>{{ __('SKS < 18') }}</td>
                             <td>{{ $statistics['cc2']['first']['positive'] }}</td>
                             <td>{{ $statistics['cc2']['first']['negative'] }}</td>
                             <td>{{ $statistics['cc2']['first']['total'] }}</td>
@@ -502,32 +502,32 @@
 <div class="row">
     <div class="col-md-6">
         <div class="card">
-            <div class="card-header">{{ __('Course Credit #3') }}</div>
+            <div class="card-header">{{ __('SKS #3') }}</div>
             <div class="card-body">
                 <table class="table table-hover table-responsive">
                     <thead>
                         <tr>
-                            <th>{{ __('Category') }}</th>
-                            <th>{{ __('Graduated') }}</th>
-                            <th>{{ __('Not Graduated') }}</th>
+                            <th>{{ __('Kategori') }}</th>
+                            <th>{{ __('Lulus') }}</th>
+                            <th>{{ __('Belum Lulus') }}</th>
                             <th>{{ __('Total') }}</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>{{ __('21 < CC <= 24') }}</td>
+                            <td>{{ __('21 < SKS <= 24') }}</td>
                             <td>{{ $statistics['cc3']['third']['positive'] }}</td>
                             <td>{{ $statistics['cc3']['third']['negative'] }}</td>
                             <td>{{ $statistics['cc3']['third']['total'] }}</td>
                         </tr>
                         <tr>
-                            <td>{{ __('18 <= CC <= 21') }}</td>
+                            <td>{{ __('18 <= SKS <= 21') }}</td>
                             <td>{{ $statistics['cc3']['second']['positive'] }}</td>
                             <td>{{ $statistics['cc3']['second']['negative'] }}</td>
                             <td>{{ $statistics['cc3']['second']['total'] }}</td>
                         </tr>
                         <tr>
-                            <td>{{ __('CC < 18') }}</td>
+                            <td>{{ __('SKS < 18') }}</td>
                             <td>{{ $statistics['cc3']['first']['positive'] }}</td>
                             <td>{{ $statistics['cc3']['first']['negative'] }}</td>
                             <td>{{ $statistics['cc3']['first']['total'] }}</td>
@@ -547,32 +547,32 @@
     </div>
     <div class="col-md-6">
         <div class="card">
-            <div class="card-header">{{ __('Course Credit #4') }}</div>
+            <div class="card-header">{{ __('SKS #4') }}</div>
             <div class="card-body">
                 <table class="table table-hover table-responsive">
                     <thead>
                         <tr>
-                            <th>{{ __('Category') }}</th>
-                            <th>{{ __('Graduated') }}</th>
-                            <th>{{ __('Not Graduated') }}</th>
+                            <th>{{ __('Kategori') }}</th>
+                            <th>{{ __('Lulus') }}</th>
+                            <th>{{ __('Belum Lulus') }}</th>
                             <th>{{ __('Total') }}</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>{{ __('21 < CC <= 24') }}</td>
+                            <td>{{ __('21 < SKS <= 24') }}</td>
                             <td>{{ $statistics['cc4']['third']['positive'] }}</td>
                             <td>{{ $statistics['cc4']['third']['negative'] }}</td>
                             <td>{{ $statistics['cc4']['third']['total'] }}</td>
                         </tr>
                         <tr>
-                            <td>{{ __('18 <= CC <= 21') }}</td>
+                            <td>{{ __('18 <= SKS <= 21') }}</td>
                             <td>{{ $statistics['cc4']['second']['positive'] }}</td>
                             <td>{{ $statistics['cc4']['second']['negative'] }}</td>
                             <td>{{ $statistics['cc4']['second']['total'] }}</td>
                         </tr>
                         <tr>
-                            <td>{{ __('CC < 18') }}</td>
+                            <td>{{ __('SKS < 18') }}</td>
                             <td>{{ $statistics['cc4']['first']['positive'] }}</td>
                             <td>{{ $statistics['cc4']['first']['negative'] }}</td>
                             <td>{{ $statistics['cc4']['first']['total'] }}</td>
@@ -597,32 +597,32 @@
 <div class="row">
     <div class="col-md-6">
         <div class="card">
-            <div class="card-header">{{ __('Course Credit #5') }}</div>
+            <div class="card-header">{{ __('SKS #5') }}</div>
             <div class="card-body">
                 <table class="table table-hover table-responsive">
                     <thead>
                         <tr>
-                            <th>{{ __('Category') }}</th>
-                            <th>{{ __('Graduated') }}</th>
-                            <th>{{ __('Not Graduated') }}</th>
+                            <th>{{ __('Kategori') }}</th>
+                            <th>{{ __('Lulus') }}</th>
+                            <th>{{ __('Belum Lulus') }}</th>
                             <th>{{ __('Total') }}</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>{{ __('21 < CC <= 24') }}</td>
+                            <td>{{ __('21 < SKS <= 24') }}</td>
                             <td>{{ $statistics['cc5']['third']['positive'] }}</td>
                             <td>{{ $statistics['cc5']['third']['negative'] }}</td>
                             <td>{{ $statistics['cc5']['third']['total'] }}</td>
                         </tr>
                         <tr>
-                            <td>{{ __('18 <= CC <= 21') }}</td>
+                            <td>{{ __('18 <= SKS <= 21') }}</td>
                             <td>{{ $statistics['cc5']['second']['positive'] }}</td>
                             <td>{{ $statistics['cc5']['second']['negative'] }}</td>
                             <td>{{ $statistics['cc5']['second']['total'] }}</td>
                         </tr>
                         <tr>
-                            <td>{{ __('CC < 18') }}</td>
+                            <td>{{ __('SKS < 18') }}</td>
                             <td>{{ $statistics['cc5']['first']['positive'] }}</td>
                             <td>{{ $statistics['cc5']['first']['negative'] }}</td>
                             <td>{{ $statistics['cc5']['first']['total'] }}</td>
@@ -642,32 +642,32 @@
     </div>
     <div class="col-md-6">
         <div class="card">
-            <div class="card-header">{{ __('Course Credit #6') }}</div>
+            <div class="card-header">{{ __('SKS #6') }}</div>
             <div class="card-body">
                 <table class="table table-hover table-responsive">
                     <thead>
                         <tr>
-                            <th>{{ __('Category') }}</th>
-                            <th>{{ __('Graduated') }}</th>
-                            <th>{{ __('Not Graduated') }}</th>
+                            <th>{{ __('Kategori') }}</th>
+                            <th>{{ __('Lulus') }}</th>
+                            <th>{{ __('Belum Lulus') }}</th>
                             <th>{{ __('Total') }}</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>{{ __('21 < CC <= 24') }}</td>
+                            <td>{{ __('21 < SKS <= 24') }}</td>
                             <td>{{ $statistics['cc6']['third']['positive'] }}</td>
                             <td>{{ $statistics['cc6']['third']['negative'] }}</td>
                             <td>{{ $statistics['cc6']['third']['total'] }}</td>
                         </tr>
                         <tr>
-                            <td>{{ __('18 <= CC <= 21') }}</td>
+                            <td>{{ __('18 <= SKS <= 21') }}</td>
                             <td>{{ $statistics['cc6']['second']['positive'] }}</td>
                             <td>{{ $statistics['cc6']['second']['negative'] }}</td>
                             <td>{{ $statistics['cc6']['second']['total'] }}</td>
                         </tr>
                         <tr>
-                            <td>{{ __('CC < 18') }}</td>
+                            <td>{{ __('SKS < 18') }}</td>
                             <td>{{ $statistics['cc6']['first']['positive'] }}</td>
                             <td>{{ $statistics['cc6']['first']['negative'] }}</td>
                             <td>{{ $statistics['cc6']['first']['total'] }}</td>

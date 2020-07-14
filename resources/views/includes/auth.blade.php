@@ -7,7 +7,6 @@
     @endif
     <div class="row">
 
-
         <div class="col-md-3">
             <div class="card">
                 <div class="card-header">
@@ -16,13 +15,13 @@
                 <div class="card-body">
                     <ul class="nav flex-column">
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('student.index') }}">{{ __('Index') }}</a>
+                            <a class="nav-link" href="{{ route('student.index') }}">{{ __('Mahasiswa') }}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('student.test') }}">{{ __('Test') }}</a>
+                            <a class="nav-link" href="{{ route('student.test') }}">{{ __('Pengujian') }}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('student.statistic') }}">{{ __('Statistic') }}</a>
+                            <a class="nav-link" href="{{ route('student.statistic') }}">{{ __('Statistik Data Latih') }}</a>
                         </li>
                     </ul>
                 </div>

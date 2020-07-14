@@ -4,33 +4,33 @@
 
 @if (isset($result))
 <div class="card">
-    <div class="card-header">{{ __('Result') }}</div>
+    <div class="card-header">{{ __('Hasil Pengujian') }}</div>
     <div class="card-body">
         <table class="table table-hover table-responsive">
             <thead>
                 <tr>
-                    <th>{{ __('Class') }}</th>
-                    <th>{{ __('Born Place') }}</th>
-                    <th>{{ __('Gender') }}</th>
-                    <th>{{ __('GPA #1') }}</th>
-                    <th>{{ __('GPA #2') }}</th>
-                    <th>{{ __('GPA #3') }}</th>
-                    <th>{{ __('GPA #4') }}</th>
-                    <th>{{ __('GPA #5') }}</th>
-                    <th>{{ __('GPA #6') }}</th>
-                    <th>{{ __('CC #1') }}</th>
-                    <th>{{ __('CC #2') }}</th>
-                    <th>{{ __('CC #3') }}</th>
-                    <th>{{ __('CC #4') }}</th>
-                    <th>{{ __('CC #5') }}</th>
-                    <th>{{ __('CC #6') }}</th>
+                    <th>{{ __('Kelas') }}</th>
+                    <th>{{ __('Tempat Lahir') }}</th>
+                    <th>{{ __('Jenis Kelamin') }}</th>
+                    <th>{{ __('IP #1') }}</th>
+                    <th>{{ __('IP #2') }}</th>
+                    <th>{{ __('IP #3') }}</th>
+                    <th>{{ __('IP #4') }}</th>
+                    <th>{{ __('IP #5') }}</th>
+                    <th>{{ __('IP #6') }}</th>
+                    <th>{{ __('SKS #1') }}</th>
+                    <th>{{ __('SKS #2') }}</th>
+                    <th>{{ __('SKS #3') }}</th>
+                    <th>{{ __('SKS #4') }}</th>
+                    <th>{{ __('SKS #5') }}</th>
+                    <th>{{ __('SKS #6') }}</th>
                     <th>{{ __('P') }}</th>
-                    <th>{{ __('Decision') }}</th>
+                    <th>{{ __('Keputusan') }}</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td>{{ __('Graduated') }}</td>
+                    <td>{{ __('Lulus') }}</td>
                     <td>{{ $result['bornPlace']['positive'] }}</td>
                     <td>{{ $result['gender']['positive'] }}</td>
                     <td>{{ $result['gpa1']['positive'] }}</td>
@@ -49,7 +49,7 @@
                     <td>{{ $decision['positive'] }}%</td>
                 </tr>
                 <tr>
-                    <td>{{ __('Not Graduated') }}</td>
+                    <td>{{ __('Belum Lulus') }}</td>
                     <td>{{ $result['bornPlace']['negative'] }}</td>
                     <td>{{ $result['gender']['negative'] }}</td>
                     <td>{{ $result['gpa1']['negative'] }}</td>
@@ -70,24 +70,24 @@
             </tbody>
         </table>
 
-        <h5>{{ __('Conclusion') }}:</h5>
+        <h5>{{ __('Kesimpulan') }}:</h5>
         <table class="table">
             <tr>
-                <td>{{ __('Graduated') }}
+                <td>{{ __('Lulus') }}
                 <td>
                 <td>{{ $decision['positive'] }}%</td>
             </tr>
             <tr>
-                <td>{{ __('Not Graduated') }}
+                <td>{{ __('Belum Lulus') }}
                 <td>
                 <td>{{ $decision['negative'] }}%</td>
             </tr>
         </table>
 
         @if ($decision['positive'] >= $decision['negative'])
-        <h5>{{ __('Decision') }}: {{ __('Graduated') }}</h5>
+        <h5>{{ __('Hasil') }}: {{ __('Lulus') }}</h5>
         @else
-        <h5>{{ __('Decision') }}: {{ __('Not Graduated') }}</h5>
+        <h5>{{ __('Hasil') }}: {{ __('Belum Lulus') }}</h5>
         @endif
 
     </div>
@@ -95,22 +95,22 @@
 @endif
 
 <div class="card">
-    <div class="card-header">{{ __('Test') }}</div>
+    <div class="card-header">{{ __('Pengujian') }}</div>
     <div class="card-body">
         <form method="GET" action="{{ url()->current() }}">
             {{ csrf_field() }}
 
-            <h5>{{ __('Personal Information') }}</h5>
+            <h5>{{ __('Informasi Mahasiswa') }}</h5>
             <hr>
 
             <div class="form-row">
                 <div class="col-md-8">
-                    <label>{{ __('Study Programme') }}</label>
+                    <label>{{ __('Program Studi') }}</label>
                     <input class="form-control" type="text" name="study_programme" value="TEKNIK INFORMATIKA" required readonly>
                 </div>
 
                 <div class="col-md-4">
-                    <label>{{ __('Year Class') }}</label>
+                    <label>{{ __('Tahun Ajaran') }}</label>
                     <input class="form-control" type="number" name="year_class" min="0" max="2100" required>
                 </div>
             </div>
@@ -119,16 +119,16 @@
 
             <div class="form-row">
                 <div class="col-md-6">
-                    <label>{{ __('Born Place') }}</label>
+                    <label>{{ __('Tempat Lahir') }}</label>
                     <select name="born_place" class="form-control" required="true">
                         <option value="" selected>-Select-</option>
-                        <option value="first">{{ __('Outside the City') }}</option>
-                        <option value="second">{{ __('In the City') }}</option>
+                        <option value="first">{{ __('Luar Kota') }}</option>
+                        <option value="second">{{ __('Dalam Kota') }}</option>
                     </select>
                 </div>
 
                 <div class="col-md-6">
-                    <label>{{ __('Born Date') }}</label>
+                    <label>{{ __('Tanggal Lahir') }}</label>
                     <input class="form-control" type="date" name="born_date" required>
                 </div>
             </div>
@@ -137,7 +137,7 @@
 
             <div class="form-row">
                 <div class="col-md-6">
-                    <label>{{ __('Religion') }}</label>
+                    <label>{{ __('Agama') }}</label>
                     <select name="religion" class="form-control" required>
                         <option value="" selected>-Select-</option>
                         <option value="Islam">{{ __('Islam') }}</option>
@@ -145,31 +145,31 @@
                         <option value="Katolik">{{ __('Katolik') }}</option>
                         <option value="Hindu">{{ __('Hindu') }}</option>
                         <option value="Budha">{{ __('Budha') }}</option>
-                        <option value="Other">{{ __('Other') }}</option>
+                        <option value="Other">{{ __('Lainnya') }}</option>
                     </select>
                 </div>
 
                 <div class="col-md-6">
-                    <label>{{ __('Gender') }}</label>
+                    <label>{{ __('Jenis Kelamin') }}</label>
                     <select name="gender" class="form-control" required>
                         <option value="" selected>-Select-</option>
-                        <option value="first">{{ __('Male') }}</option>
-                        <option value="second">{{ __('Female') }}</option>
+                        <option value="first">{{ __('Pria') }}</option>
+                        <option value="second">{{ __('Wanita') }}</option>
                     </select>
                 </div>
             </div>
 
             <br>
 
-            <h5>{{ __('Parent Information') }}</h5>
+            <h5>{{ __('Informasi Orang Tua') }}</h5>
             <hr>
 
             <div class="form-row">
                 <div class="col-md-6">
-                    <label>{{ __('Father Education') }}</label>
+                    <label>{{ __('Pendidikan Ayah') }}</label>
                     <select name="father_education" class="form-control" required>
                         <option value="" selected>-Select-</option>
-                        <option value="1">{{ __('Dropout') }}</option>
+                        <option value="1">{{ __('Tidak tamat') }}</option>
                         <option value="2">{{ __('SD') }}</option>
                         <option value="3">{{ __('SMP') }}</option>
                         <option value="4">{{ __('SMA') }}</option>
@@ -182,10 +182,10 @@
                 </div>
 
                 <div class="col-md-6">
-                    <label>{{ __('Mother Education') }}</label>
+                    <label>{{ __('Pendidikan Ibu') }}</label>
                     <select name="mother_education" class="form-control" required>
                         <option value="" selected>-Select-</option>
-                        <option value="1">{{ __('Dropout') }}</option>
+                        <option value="1">{{ __('Tidak tamat') }}</option>
                         <option value="2">{{ __('SD') }}</option>
                         <option value="3">{{ __('SMP') }}</option>
                         <option value="4">{{ __('SMA') }}</option>
@@ -202,47 +202,47 @@
 
             <div class="form-row">
                 <div class="col-md-6">
-                    <label>{{ __('Father Job') }}</label>
+                    <label>{{ __('Pekerjaan Ayah') }}</label>
                     <input type="text" name="father_job" class="form-control" required>
                 </div>
 
                 <div class="col-md-6">
-                    <label>{{ __('Mother Job') }}</label>
+                    <label>{{ __('Pekerjaan Ibu') }}</label>
                     <input type="text" name="mother_job" class="form-control" required>
                 </div>
             </div>
 
             <br>
 
-            <h5>{{ __('Student Education') }}</h5>
+            <h5>{{ __('Pencapaian Mahasiswa') }}</h5>
             <hr>
 
             <div class="form-row">
                 <div class="col-md-4">
-                    <label>{{ __('GPA #1') }}</label>
+                    <label>{{ __('IP #1') }}</label>
                     <select name="gpa_1" class="form-control" required>
                         <option value="" selected>---Select---</option>
-                        <option value="third">{{ __('GPA >= 3') }}</option>
-                        <option value="second">{{ __('2 <= GPA < 3') }}</option>
-                        <option value="first">{{ __('GPA < 2') }}</option>
+                        <option value="third">{{ __('IP >= 3') }}</option>
+                        <option value="second">{{ __('2 <= IP < 3') }}</option>
+                        <option value="first">{{ __('IP < 2') }}</option>
                     </select>
                 </div>
                 <div class="col-md-4">
-                    <label>{{ __('GPA #2') }}</label>
+                    <label>{{ __('IP #2') }}</label>
                     <select name="gpa_2" class="form-control" required>
                         <option value="" selected>---Select---</option>
-                        <option value="third">{{ __('GPA >= 3') }}</option>
-                        <option value="second">{{ __('2 <= GPA < 3') }}</option>
-                        <option value="first">{{ __('GPA < 2') }}</option>
+                        <option value="third">{{ __('IP >= 3') }}</option>
+                        <option value="second">{{ __('2 <= IP < 3') }}</option>
+                        <option value="first">{{ __('IP < 2') }}</option>
                     </select>
                 </div>
                 <div class="col-md-4">
-                    <label>{{ __('GPA #3') }}</label>
+                    <label>{{ __('IP #3') }}</label>
                     <select name="gpa_3" class="form-control" required>
                         <option value="" selected>---Select---</option>
-                        <option value="third">{{ __('GPA >= 3') }}</option>
-                        <option value="second">{{ __('2 <= GPA < 3') }}</option>
-                        <option value="first">{{ __('GPA < 2') }}</option>
+                        <option value="third">{{ __('IP >= 3') }}</option>
+                        <option value="second">{{ __('2 <= IP < 3') }}</option>
+                        <option value="first">{{ __('IP < 2') }}</option>
                     </select>
                 </div>
             </div>
@@ -251,30 +251,30 @@
 
             <div class="form-row">
                 <div class="col-md-4">
-                    <label>{{ __('GPA #4') }}</label>
+                    <label>{{ __('IP #4') }}</label>
                     <select name="gpa_4" class="form-control" required>
                         <option value="" selected>---Select---</option>
-                        <option value="third">{{ __('GPA >= 3') }}</option>
-                        <option value="second">{{ __('2 <= GPA < 3') }}</option>
-                        <option value="first">{{ __('GPA < 2') }}</option>
+                        <option value="third">{{ __('IP >= 3') }}</option>
+                        <option value="second">{{ __('2 <= IP < 3') }}</option>
+                        <option value="first">{{ __('IP < 2') }}</option>
                     </select>
                 </div>
                 <div class="col-md-4">
-                    <label>{{ __('GPA #5') }}</label>
+                    <label>{{ __('IP #5') }}</label>
                     <select name="gpa_5" class="form-control" required>
                         <option value="" selected>---Select---</option>
-                        <option value="third">{{ __('GPA >= 3') }}</option>
-                        <option value="second">{{ __('2 <= GPA < 3') }}</option>
-                        <option value="first">{{ __('GPA < 2') }}</option>
+                        <option value="third">{{ __('IP >= 3') }}</option>
+                        <option value="second">{{ __('2 <= IP < 3') }}</option>
+                        <option value="first">{{ __('IP < 2') }}</option>
                     </select>
                 </div>
                 <div class="col-md-4">
-                    <label>{{ __('GPA #6') }}</label>
+                    <label>{{ __('IP #6') }}</label>
                     <select name="gpa_6" class="form-control" required>
                         <option value="" selected>---Select---</option>
-                        <option value="third">{{ __('GPA >= 3') }}</option>
-                        <option value="second">{{ __('2 <= GPA < 3') }}</option>
-                        <option value="first">{{ __('GPA < 2') }}</option>
+                        <option value="third">{{ __('IP >= 3') }}</option>
+                        <option value="second">{{ __('2 <= IP < 3') }}</option>
+                        <option value="first">{{ __('IP < 2') }}</option>
                     </select>
                 </div>
             </div>
@@ -283,30 +283,30 @@
 
             <div class="form-row">
                 <div class="col-md-4">
-                    <label>{{ __('Course Credit #1') }}</label>
+                    <label>{{ __('SKS #1') }}</label>
                     <select name="cc_1" class="form-control" required>
                         <option value="" selected>---Select---</option>
-                        <option value="third">{{ __('21 < Course Credit <= 24') }}</option>
-                        <option value="second">{{ __('18 <= Course Credit <= 21') }}</option>
-                        <option value="first">{{ __('Course Credit < 18') }}</option>
+                        <option value="third">{{ __('21 < SKS <= 24') }}</option>
+                        <option value="second">{{ __('18 <= SKS <= 21') }}</option>
+                        <option value="first">{{ __('SKS < 18') }}</option>
                     </select>
                 </div>
                 <div class="col-md-4">
-                    <label>{{ __('Course Credit #2') }}</label>
+                    <label>{{ __('SKS #2') }}</label>
                     <select name="cc_2" class="form-control" required>
                         <option value="" selected>---Select---</option>
-                        <option value="third">{{ __('21 < Course Credit <= 24') }}</option>
-                        <option value="second">{{ __('18 <= Course Credit <= 21') }}</option>
-                        <option value="first">{{ __('Course Credit < 18') }}</option>
+                        <option value="third">{{ __('21 < SKS <= 24') }}</option>
+                        <option value="second">{{ __('18 <= SKS <= 21') }}</option>
+                        <option value="first">{{ __('SKS < 18') }}</option>
                     </select>
                 </div>
                 <div class="col-md-4">
-                    <label>{{ __('Course Credit #3') }}</label>
+                    <label>{{ __('SKS #3') }}</label>
                     <select name="cc_3" class="form-control" required>
                         <option value="" selected>---Select---</option>
-                        <option value="third">{{ __('21 < Course Credit <= 24') }}</option>
-                        <option value="second">{{ __('18 <= Course Credit <= 21') }}</option>
-                        <option value="first">{{ __('Course Credit < 18') }}</option>
+                        <option value="third">{{ __('21 < SKS <= 24') }}</option>
+                        <option value="second">{{ __('18 <= SKS <= 21') }}</option>
+                        <option value="first">{{ __('SKS < 18') }}</option>
                     </select>
                 </div>
             </div>
@@ -315,30 +315,30 @@
 
             <div class="form-row">
                 <div class="col-md-4">
-                    <label>{{ __('Course Credit #4') }}</label>
+                    <label>{{ __('SKS #4') }}</label>
                     <select name="cc_4" class="form-control" required>
                         <option value="" selected>---Select---</option>
-                        <option value="third">{{ __('21 < Course Credit <= 24') }}</option>
-                        <option value="second">{{ __('18 <= Course Credit <= 21') }}</option>
-                        <option value="first">{{ __('Course Credit < 18') }}</option>
+                        <option value="third">{{ __('21 < SKS <= 24') }}</option>
+                        <option value="second">{{ __('18 <= SKS <= 21') }}</option>
+                        <option value="first">{{ __('SKS < 18') }}</option>
                     </select>
                 </div>
                 <div class="col-md-4">
-                    <label>{{ __('Course Credit #5') }}</label>
+                    <label>{{ __('SKS #5') }}</label>
                     <select name="cc_5" class="form-control" required>
                         <option value="" selected>---Select---</option>
-                        <option value="third">{{ __('21 < Course Credit <= 24') }}</option>
-                        <option value="second">{{ __('18 <= Course Credit <= 21') }}</option>
-                        <option value="first">{{ __('Course Credit < 18') }}</option>
+                        <option value="third">{{ __('21 < SKS <= 24') }}</option>
+                        <option value="second">{{ __('18 <= SKS <= 21') }}</option>
+                        <option value="first">{{ __('SKS < 18') }}</option>
                     </select>
                 </div>
                 <div class="col-md-4">
-                    <label>{{ __('Course Credit #6') }}</label>
+                    <label>{{ __('SKS #6') }}</label>
                     <select name="cc_6" class="form-control" required>
                         <option value="" selected>---Select---</option>
-                        <option value="third">{{ __('21 < Course Credit <= 24') }}</option>
-                        <option value="second">{{ __('18 <= Course Credit <= 21') }}</option>
-                        <option value="first">{{ __('Course Credit < 18') }}</option>
+                        <option value="third">{{ __('21 < SKS <= 24') }}</option>
+                        <option value="second">{{ __('18 <= SKS <= 21') }}</option>
+                        <option value="first">{{ __('SKS < 18') }}</option>
                     </select>
                 </div>
             </div>

@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="card">
-    <div class="card-header">{{ __('Data Training') }}</div>
+    <div class="card-header">{{ __('Data Latih') }}</div>
     <div class="card-body">
         <div class="row">
             <form method="POST" enctype="multipart/form-data" action="{{ route('student.submitExcel') }}">
@@ -18,7 +18,7 @@
                 @enderror
 
                 <div class="form-group form-inline">
-                    <label for="input" class="col-md-3">File Excel</label>
+                    <label for="input" class="col-md-3">{{ __('Unggah File Excel') }}</label>
                     <input class="form-control col-md-6 @error('excel') is-invalid @enderror mr-2" type="file" name="excel" />
                     <input type="submit" class="btn btn-success btn-md" />
                 </div>
@@ -27,28 +27,28 @@
         <hr>
         <table class="table table-responsive table-hover">
             <tr>
-                <th>{{ __('Study Programme') }}</th>
-                <th>{{ __('Year Class') }}</th>
-                <th>{{ __('Born Place') }}</th>
-                <th>{{ __('Born Date') }}</th>
-                <th>{{ __('Religion') }}</th>
-                <th>{{ __('Gender') }}</th>
-                <th>{{ __('Father Education') }}</th>
-                <th>{{ __('Mother Education') }}</th>
-                <th>{{ __('Father Job') }}</th>
-                <th>{{ __('Mother Job') }}</th>
-                <th>{{ __('GPA #1') }}</th>
-                <th>{{ __('GPA #2') }}</th>
-                <th>{{ __('GPA #3') }}</th>
-                <th>{{ __('GPA #4') }}</th>
-                <th>{{ __('GPA #5') }}</th>
-                <th>{{ __('GPA #6') }}</th>
-                <th>{{ __('Course Credit #1') }}</th>
-                <th>{{ __('Course Credit #2') }}</th>
-                <th>{{ __('Course Credit #3') }}</th>
-                <th>{{ __('Course Credit #4') }}</th>
-                <th>{{ __('Course Credit #5') }}</th>
-                <th>{{ __('Course Credit #6') }}</th>
+                <th>{{ __('Program Studi') }}</th>
+                <th>{{ __('Tahun Ajaran') }}</th>
+                <th>{{ __('Tempat Lahir') }}</th>
+                <th>{{ __('Tanggal Lahir') }}</th>
+                <th>{{ __('Agama') }}</th>
+                <th>{{ __('Jenis Kelamin') }}</th>
+                <th>{{ __('Pendidikan Ayah') }}</th>
+                <th>{{ __('Pendidikan Ibu') }}</th>
+                <th>{{ __('Pekerjaan Ayah') }}</th>
+                <th>{{ __('Pekerjaan Ibu') }}</th>
+                <th>{{ __('IP #1') }}</th>
+                <th>{{ __('IP #2') }}</th>
+                <th>{{ __('IP #3') }}</th>
+                <th>{{ __('IP #4') }}</th>
+                <th>{{ __('IP #5') }}</th>
+                <th>{{ __('IP #6') }}</th>
+                <th>{{ __('Jumlah SKS #1') }}</th>
+                <th>{{ __('Jumlah SKS #2') }}</th>
+                <th>{{ __('Jumlah SKS #3') }}</th>
+                <th>{{ __('Jumlah SKS #4') }}</th>
+                <th>{{ __('Jumlah SKS #5') }}</th>
+                <th>{{ __('Jumlah SKS #6') }}</th>
                 <th>{{ __('Status') }}</th>
             </tr>
             @foreach ($students as $student)
