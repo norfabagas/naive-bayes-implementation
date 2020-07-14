@@ -27,6 +27,7 @@
         <hr>
         <table class="table table-responsive table-hover">
             <tr>
+                <th>{{ __('No') }}</th>
                 <th>{{ __('Program Studi') }}</th>
                 <th>{{ __('Tahun Ajaran') }}</th>
                 <th>{{ __('Tempat Lahir') }}</th>
@@ -51,8 +52,9 @@
                 <th>{{ __('Jumlah SKS #6') }}</th>
                 <th>{{ __('Status') }}</th>
             </tr>
-            @foreach ($students as $student)
+            @foreach ($students as $index => $student)
             <tr>
+                <td>{{ $students->firstItem() + $index }}</td>
                 <td>{{ $student->study_program }}</td>
                 <td>{{ $student->year_class }}</td>
                 <td>{{ $student->bornData()->born_place == 1 ? 'Luar Kota' : 'Dalam Kota' }}</td>
