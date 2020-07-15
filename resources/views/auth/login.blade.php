@@ -12,6 +12,10 @@
                         @csrf
 
                         <div class="form-group row">
+                            <img src="https://upload.wikimedia.org/wikipedia/id/8/85/LogoUBLJkt.gif" class="mx-auto d-block">
+                        </div>
+
+                        <div class="form-group row">
                             <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
 
                             <div class="col-md-6">
