@@ -16,7 +16,8 @@ class StudentController extends Controller
      */
     public function index(Request $request)
     {
-        $students = Student::paginate(20);
+        $students = Student::where('purpose', 'training')
+            ->paginate(20);
 
         return view('students.index')
             ->with(compact(['students']));
@@ -39,12 +40,45 @@ class StudentController extends Controller
         }
 
         try {
+            $purpose = 'training';
+
+            if ($request->has('dataPurpose')) {
+                if ($request->dataPurpose == 'testing') {
+                    $purpose = 'testing';
+                } else {
+                    $purpose = 'training';
+                }
+            }
+
             $csv = $this->readCSV($request->file('excel')->getRealPath());
 
             DB::beginTransaction();
 
-            Score::query()->delete();
-            Student::query()->delete();
+            switch ($purpose) {
+                case 'testing':
+                    DB::table('scores')
+                        ->join('students', 'scores.student_id', '=', 'students.id')
+                        ->select('scores.*')
+                        ->where('students.purpose', '=', 'testing')
+                        ->delete();
+
+                    Student::where('purpose', 'testing')->delete();
+
+                    break;
+                case 'training':
+                    DB::table('scores')
+                        ->join('students', 'scores.student_id', '=', 'students.id')
+                        ->select('scores.*')
+                        ->where('students.purpose', '=', 'training')
+                        ->delete();
+
+                    Student::where('purpose', 'training')->delete();
+                    break;
+                default:
+                    Score::query()->delete();
+                    Student::query()->delete();
+                    break;
+            }
 
             foreach (array_slice($csv, 1) as $line) {
                 if ($line == false) {
@@ -94,7 +128,8 @@ class StudentController extends Controller
                             'mother_education' => $this->filterEducation($line[8]),
                             'father_job' => $line[9],
                             'mother_job' => $line[10]
-                        ])
+                        ]),
+                        'purpose' => $purpose
                     ]);
                     
                     DB::table('scores')
@@ -132,8 +167,16 @@ class StudentController extends Controller
 
         Session::flash('message', 'Data stored');
 
-        return redirect()
-            ->route('student.index');
+        if ($purpose == 'training') {
+            return redirect()
+                ->route('student.index');
+        } else if ($purpose == 'testing') {
+            return redirect()
+                ->route('student.test.excel');
+        } else {
+            return redirect()
+                ->back();
+        }
     }
 
     /**
@@ -312,6 +355,49 @@ class StudentController extends Controller
     }
 
     /**
+     * test based on excel
+     */
+    public function testExcel()
+    {
+        $students = Student::where('purpose', 'testing')
+            ->paginate(20);
+
+        $gpaMapper = [
+            1 => 'first', 
+            2 => 'second', 
+            3 => 'third'
+        ];
+
+        $courseCreditMapper = [
+            1 => 'first',
+            2 => 'second',
+            3 => 'third'
+        ];
+
+        foreach ($students as $student) {
+            $student->result = $this->calculateResult(
+                $student->bornData()->born_place == 1 ? 'first': 'second',
+                $student->gender == 1 ? 'first': 'second',
+                $gpaMapper[$student->score->gpa()->first],
+                $gpaMapper[$student->score->gpa()->second],
+                $gpaMapper[$student->score->gpa()->third],
+                $gpaMapper[$student->score->gpa()->fourth],
+                $gpaMapper[$student->score->gpa()->fifth],
+                $gpaMapper[$student->score->gpa()->sixth],
+                $courseCreditMapper[$student->score->courseCredit()->first],
+                $courseCreditMapper[$student->score->courseCredit()->second],
+                $courseCreditMapper[$student->score->courseCredit()->third],
+                $courseCreditMapper[$student->score->courseCredit()->fourth],
+                $courseCreditMapper[$student->score->courseCredit()->fifth],
+                $courseCreditMapper[$student->score->courseCredit()->sixth]
+            );
+        }
+
+        return view('students.testExcel')
+            ->with('students', $students);
+    }
+
+    /**
      * statistic view
      */
     public function statistic()
@@ -477,7 +563,8 @@ class StudentController extends Controller
     {
         return DB::table('students AS s')
             ->join('scores AS sc', 's.id', '=', 'sc.student_id')
-            ->select('sc.status AS status');
+            ->select('sc.status AS status')
+            ->where('s.purpose', '=', 'training');
     }
 
     /**
@@ -1090,5 +1177,191 @@ class StudentController extends Controller
         ];
 
         return $totalData;
+    }
+
+    /**
+     * generate calculation array
+     * 
+     * @param string $bornPlace
+     * @param string $gender
+     * @param string $gpa1
+     * @param string $gpa2
+     * @param string $gpa3
+     * @param string $gpa4
+     * @param string $gpa5
+     * @param string $gpa6
+     * @param string $cc1
+     * @param string $cc2
+     * @param string $cc3
+     * @param string $cc4
+     * @param string $cc5
+     * @param string $cc6
+     * 
+     * @return array $decision
+     */
+    protected function calculateResult($bornPlace, $gender, $gpa1, $gpa2, $gpa3, $gpa4, $gpa5, $gpa6, $cc1, $cc2, $cc3, $cc4, $cc5, $cc6)
+    {
+        $statistics = $this->getStatistics();
+
+        $all = [
+            'positive' => $statistics['all']['positive'] + 1,
+            'negative' => $statistics['all']['negative'] + 1,
+            'total' => $statistics['all']['total'] + 2,
+        ];
+
+        $bornPlace = [
+            'result' => $bornPlace,
+            'positive' => ($statistics['bornPlace'][$bornPlace]['positive'] + 1) / $all['positive'],
+            'negative' => ($statistics['bornPlace'][$bornPlace]['negative'] + 1) / $all['negative'],
+            'total' => $statistics['bornPlace'][$bornPlace]['total'] + 2
+        ];
+
+        $gender = [
+            'result' => $gender,
+            'positive' => ($statistics['gender'][$gender]['positive'] + 1) / $all['positive'],
+            'negative' => ($statistics['gender'][$gender]['negative'] + 1) / $all['negative'],
+            'total' => $statistics['gender'][$gender]['total'] + 2
+        ];
+
+        $gpa1 = [
+            'result' => $gpa1,
+            'positive' => ($statistics['gpa1'][$gpa1]['positive'] + 1) / $all['positive'],
+            'negative' => ($statistics['gpa1'][$gpa1]['negative'] + 1) / $all['negative'],
+            'total' => $statistics['gpa1'][$gpa1]['total'] + 2
+        ];
+
+        $gpa2 = [
+            'result' => $gpa2,
+            'positive' => ($statistics['gpa2'][$gpa2]['positive'] + 1) / $all['positive'],
+            'negative' => ($statistics['gpa2'][$gpa2]['negative'] + 1) / $all['negative'],
+            'total' => $statistics['gpa2'][$gpa2]['total'] + 2
+        ];
+
+        $gpa3 = [
+            'result' => $gpa3,
+            'positive' => ($statistics['gpa3'][$gpa3]['positive'] + 1) / $all['positive'],
+            'negative' => ($statistics['gpa3'][$gpa3]['negative'] + 1) / $all['negative'],
+            'total' => $statistics['gpa3'][$gpa3]['total'] + 2
+        ];
+
+        $gpa4 = [
+            'result' => $gpa4,
+            'positive' => ($statistics['gpa4'][$gpa4]['positive'] + 1) / $all['positive'],
+            'negative' => ($statistics['gpa4'][$gpa4]['negative'] + 1) / $all['negative'],
+            'total' => $statistics['gpa4'][$gpa4]['total'] + 2
+        ];
+
+        $gpa5 = [
+            'result' => $gpa5,
+            'positive' => ($statistics['gpa5'][$gpa5]['positive'] + 1) / $all['positive'],
+            'negative' => ($statistics['gpa5'][$gpa5]['negative'] + 1) / $all['negative'],
+            'total' => $statistics['gpa5'][$gpa5]['total'] + 2
+        ];
+
+        $gpa6 = [
+            'result' => $gpa6,
+            'positive' => ($statistics['gpa6'][$gpa6]['positive'] + 1) / $all['positive'],
+            'negative' => ($statistics['gpa6'][$gpa6]['negative'] + 1) / $all['negative'],
+            'total' => $statistics['gpa6'][$gpa6]['total'] + 2
+        ];
+
+        $cc1 = [
+            'result' => $cc1,
+            'positive' => ($statistics['cc1'][$cc1]['positive'] + 1) / $all['positive'],
+            'negative' => ($statistics['cc1'][$cc1]['negative'] + 1) / $all['negative'],
+            'total' => $statistics['cc1'][$cc1]['total'] + 2
+        ];
+
+        $cc2 = [
+            'result' => $cc2,
+            'positive' => ($statistics['cc2'][$cc2]['positive'] + 1) / $all['positive'],
+            'negative' => ($statistics['cc2'][$cc2]['negative'] + 1) / $all['negative'],
+            'total' => $statistics['cc2'][$cc2]['total'] + 2
+        ];
+
+        $cc3 = [
+            'result' => $cc3,
+            'positive' => ($statistics['cc3'][$cc3]['positive'] + 1) / $all['positive'],
+            'negative' => ($statistics['cc3'][$cc3]['negative'] + 1) / $all['negative'],
+            'total' => $statistics['cc3'][$cc3]['total'] + 2
+        ];
+
+        $cc4 = [
+            'result' => $cc4,
+            'positive' => ($statistics['cc4'][$cc4]['positive'] + 1) / $all['positive'],
+            'negative' => ($statistics['cc4'][$cc4]['negative'] + 1) / $all['negative'],
+            'total' => $statistics['cc4'][$cc4]['total'] + 2
+        ];
+
+        $cc5 = [
+            'result' => $cc5,
+            'positive' => ($statistics['cc5'][$cc5]['positive'] + 1) / $all['positive'],
+            'negative' => ($statistics['cc5'][$cc5]['negative'] + 1) / $all['negative'],
+            'total' => $statistics['cc5'][$cc5]['total'] + 2
+        ];
+
+        $cc6 = [
+            'result' => $cc6,
+            'positive' => ($statistics['cc6'][$cc6]['positive'] + 1) / $all['positive'],
+            'negative' => ($statistics['cc6'][$cc6]['negative'] + 1) / $all['negative'],
+            'total' => $statistics['cc6'][$cc6]['total'] + 2
+        ];
+
+        $result = [
+            'all' => $all,
+            'bornPlace' => $bornPlace,
+            'gender' => $gender,
+            'gpa1' => $gpa1,
+            'gpa2' => $gpa2,
+            'gpa3' => $gpa3,
+            'gpa4' => $gpa4,
+            'gpa5' => $gpa5,
+            'gpa6' => $gpa6,
+            'cc1' => $cc1,
+            'cc2' => $cc2,
+            'cc3' => $cc3,
+            'cc4' => $cc4,
+            'cc5' => $cc5,
+            'cc6' => $cc6,
+            'p' => [
+                'positive' => ($bornPlace['positive'] *
+                $gender['positive'] *
+                $gpa1['positive'] *
+                $gpa2['positive'] *
+                $gpa3['positive'] *
+                $gpa4['positive'] *
+                $gpa5['positive'] *
+                $gpa6['positive'] *
+                $cc1['positive'] *
+                $cc2['positive'] *
+                $cc3['positive'] *
+                $cc4['positive'] *
+                $cc5['positive'] *
+                $cc6['positive']) *
+                ($all['positive'] / $all['total']),
+                'negative' => $bornPlace['negative'] *
+                $gender['negative'] *
+                $gpa1['negative'] *
+                $gpa2['negative'] *
+                $gpa3['negative'] *
+                $gpa4['negative'] *
+                $gpa5['negative'] *
+                $gpa6['negative'] *
+                $cc1['negative'] *
+                $cc2['negative'] *
+                $cc3['negative'] *
+                $cc4['negative'] *
+                $cc5['negative'] *
+                $cc6['negative'] *
+                ($all['negative'] / $all['total'])
+            ]
+        ];
+
+        $decision = [
+            'positive' => round(($result['p']['positive'] / ($result['p']['positive'] + $result['p']['negative'])) * 100, 2),
+            'negative' => round(($result['p']['negative'] / ($result['p']['positive'] + $result['p']['negative'])) * 100, 2)
+        ];
+
+        return $decision;
     }
 }
