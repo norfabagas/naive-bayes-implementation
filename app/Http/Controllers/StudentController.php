@@ -80,8 +80,18 @@ class StudentController extends Controller
                     break;
             }
 
-            foreach (array_slice($csv, 1) as $line) {
+            $iter = 1;
+            $csv = array_slice($csv, 1);
+            if ($purpose == 'testing') {
+                shuffle($csv);
+            }
+
+            foreach ($csv as $line) {
                 if ($line == false) {
+                    continue;
+                }
+
+                if ($iter > 200 && $purpose == 'testing') {
                     continue;
                 }
 
@@ -129,9 +139,10 @@ class StudentController extends Controller
                             'father_job' => $line[9],
                             'mother_job' => $line[10]
                         ]),
-                        'purpose' => $purpose
+                        'purpose' => $purpose,
+                        'dump' => json_encode($line)
                     ]);
-                    
+
                     DB::table('scores')
                     ->insert([
                         'student_id' => $student,
@@ -154,7 +165,8 @@ class StudentController extends Controller
                         'status' => json_encode([
                             'numeric' => $this->filterStatus($line[23]),
                             'text' => $line[23]
-                        ])
+                        ]),
+                        'dump' => json_encode($line)
                     ]);
                 }
 
@@ -391,6 +403,8 @@ class StudentController extends Controller
                 $courseCreditMapper[$student->score->courseCredit()->fifth],
                 $courseCreditMapper[$student->score->courseCredit()->sixth]
             );
+
+            $student->prediction = $student->result['positive'] >= $student->result['negative'] ? 'Lulus' : 'Belum Lulus';
         }
 
         return view('students.testExcel')

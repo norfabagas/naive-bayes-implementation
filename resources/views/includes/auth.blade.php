@@ -15,13 +15,15 @@
                 <div class="card-body">
                     <ul class="nav flex-column">
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('student.index') }}">{{ __('Mahasiswa') }}</a>
+                            <a class="nav-link" href="{{ route('student.index') }}">{{ __('Data Training') }}</a>
                         </li>
+                        {{--
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('student.test') }}">{{ __('Pengujian Satuan') }}</a>
                         </li>
+                        --}}
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('student.test.excel') }}">{{ __('Pengujian dengan Excel') }}</a>
+                            <a class="nav-link" href="{{ route('student.test.excel') }}">{{ __('Data Testing') }}</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('student.statistic') }}">{{ __('Statistik Data Latih') }}</a>

@@ -13,7 +13,9 @@ class Student extends Model
         'religion',
         'gender',
         'address',
-        'parent_data'
+        'parent_data',
+        'purpose',
+        'dump'
     ];
 
     /**
@@ -38,5 +40,13 @@ class Student extends Model
     public function parentData()
     {
         return json_decode($this->parent_data);
+    }
+
+    /**
+     * return dump (raw data) from json datatype
+     */
+    public function dump()
+    {
+        return json_decode($this->dump);
     }
 }

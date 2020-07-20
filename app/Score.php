@@ -10,7 +10,8 @@ class Score extends Model
         'student_id',
         'gpa',
         'course_credit',
-        'status'
+        'status',
+        'dump'
     ];
 
     /**
@@ -43,5 +44,13 @@ class Score extends Model
     public function status()
     {
         return json_decode($this->status);
+    }
+
+    /**
+     * return dump (raw data) from json datatype
+     */
+    public function dump()
+    {
+        return json_decode($this->dump);
     }
 }
