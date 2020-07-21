@@ -120,6 +120,8 @@
                 <th>{{ __('Jumlah SKS #6') }}</th>
                 <th>{{ __('Status') }}</th>
                 <th>{{ __('Hasil Prediksi') }}</th>
+                <th>{{ __('P(Lulus)') }}</th>
+                <th>{{ __('P(Belum Lulus)') }}</th>
             </tr>
             @foreach ($students as $index => $student)
             <tr class="{{ $student->score->status()->text == $student->prediction ? '' : 'table-danger' }}">
@@ -148,6 +150,8 @@
                 <td>{{ $student->score->courseCredit()->sixth }}</td>
                 <td>{{ $student->score->status()->text }}</td>
                 <td>{{ $student->prediction }}</td>
+                <td>{{ round(($student->result['result']['p']['positive'] / ($student->result['result']['p']['positive'] + $student->result['result']['p']['negative'])) * 100, 2) }}%</td>
+                <td>{{ round(($student->result['result']['p']['negative'] / ($student->result['result']['p']['positive'] + $student->result['result']['p']['negative'])) * 100, 2) }}%</td>
             </tr>
             @endforeach
         </table>

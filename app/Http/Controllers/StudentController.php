@@ -404,7 +404,7 @@ class StudentController extends Controller
                 $courseCreditMapper[$student->score->courseCredit()->sixth]
             );
 
-            $student->prediction = $student->result['positive'] >= $student->result['negative'] ? 'Lulus' : 'Belum Lulus';
+            $student->prediction = $student->result['decision']['positive'] >= $student->result['decision']['negative'] ? 'Lulus' : 'Belum Lulus';
         }
 
         return view('students.testExcel')
@@ -1211,7 +1211,7 @@ class StudentController extends Controller
      * @param string $cc5
      * @param string $cc6
      * 
-     * @return array $decision
+     * @return array
      */
     protected function calculateResult($bornPlace, $gender, $gpa1, $gpa2, $gpa3, $gpa4, $gpa5, $gpa6, $cc1, $cc2, $cc3, $cc4, $cc5, $cc6)
     {
@@ -1376,6 +1376,9 @@ class StudentController extends Controller
             'negative' => round(($result['p']['negative'] / ($result['p']['positive'] + $result['p']['negative'])) * 100, 2)
         ];
 
-        return $decision;
+        return [
+            'result' => $result,
+            'decision' => $decision
+        ];
     }
 }
