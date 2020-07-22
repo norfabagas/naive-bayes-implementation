@@ -124,7 +124,7 @@
                 <th>{{ __('P(Belum Lulus)') }}</th>
             </tr>
             @foreach ($students as $index => $student)
-            <tr class="{{ $student->score->status()->text == $student->prediction ? '' : 'table-danger' }}">
+            <tr class="{{ $student->actualCode == $student->predictionCode ? '' : 'table-danger' }}">
                 <td>{{ $students->firstItem() + $index }}</td>
                 <td>{{ $student->study_program }}</td>
                 <td>{{ $student->year_class }}</td>

@@ -405,6 +405,18 @@ class StudentController extends Controller
             );
 
             $student->prediction = $student->result['decision']['positive'] >= $student->result['decision']['negative'] ? 'Lulus' : 'Belum Lulus';
+            if ($student->prediction == 'Lulus') {
+                $student->predictionCode = 1;
+            } else {
+                $student->predictionCode = 0;
+            }
+
+            $student->actual = trim(strtolower($student->score->status()->text));
+            if ($student->actual == 'lulus') {
+                $student->actualCode = 1;
+            } else {
+                $student->actualCode = 0;
+            }
         }
 
         return view('students.testExcel')
@@ -487,10 +499,8 @@ class StudentController extends Controller
         switch (trim(strtolower($status))) {
             case 'lulus':
                 return 1;
-            case 'belum lulus':
-                return 2;
             default:
-                return 0;
+                return 2;
         }
     }
 
