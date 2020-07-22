@@ -80,18 +80,17 @@ class StudentController extends Controller
                     break;
             }
 
-            $iter = 1;
             $csv = array_slice($csv, 1);
             if ($purpose == 'testing') {
                 shuffle($csv);
+                $dataCount = count($csv);
+                $dataCount = (int) round(20 / 100 * $dataCount);
+
+                $csv = array_slice($csv, 0, $dataCount);
             }
 
             foreach ($csv as $index => $line) {
                 if ($line == false) {
-                    continue;
-                }
-
-                if ($iter > 200 && $purpose == 'testing') {
                     continue;
                 }
 
