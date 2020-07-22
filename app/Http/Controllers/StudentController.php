@@ -86,7 +86,7 @@ class StudentController extends Controller
                 shuffle($csv);
             }
 
-            foreach ($csv as $line) {
+            foreach ($csv as $index => $line) {
                 if ($line == false) {
                     continue;
                 }
@@ -113,12 +113,12 @@ class StudentController extends Controller
                     ($line[14] != NULL && $line[14] != "" && (float) $line[14] <= 4 && (float) $line[14] >= 0) && 
                     ($line[15] != NULL && $line[15] != "" && (float) $line[15] <= 4 && (float) $line[15] >= 0) && 
                     ($line[16] != NULL && $line[16] != "" && (float) $line[16] <= 4 && (float) $line[16] >= 0) && 
-                    ($line[17] != NULL && $line[17] != "" && (int) $line[17] <= 24 && (int) $line[17] > 0) && 
-                    ($line[18] != NULL && $line[18] != "" && (int) $line[18] <= 24 && (int) $line[18] > 0) && 
-                    ($line[19] != NULL && $line[19] != "" && (int) $line[19] <= 24 && (int) $line[19] > 0) && 
-                    ($line[20] != NULL && $line[20] != "" && (int) $line[20] <= 24 && (int) $line[20] > 0) && 
-                    ($line[21] != NULL && $line[21] != "" && (int) $line[21] <= 24 && (int) $line[21] > 0) && 
-                    ($line[22] != NULL && $line[22] != "" && (int) $line[22] <= 24 && (int) $line[22] > 0) && 
+                    ($line[17] != NULL && $line[17] != "" && (int) $line[17] <= 24 && (int) $line[17] >= 0) && 
+                    ($line[18] != NULL && $line[18] != "" && (int) $line[18] <= 24 && (int) $line[18] >= 0) && 
+                    ($line[19] != NULL && $line[19] != "" && (int) $line[19] <= 24 && (int) $line[19] >= 0) && 
+                    ($line[20] != NULL && $line[20] != "" && (int) $line[20] <= 24 && (int) $line[20] >= 0) && 
+                    ($line[21] != NULL && $line[21] != "" && (int) $line[21] <= 24 && (int) $line[21] >= 0) && 
+                    ($line[22] != NULL && $line[22] != "" && (int) $line[22] <= 24 && (int) $line[22] >= 0) && 
                     ($line[23] != NULL && $line[23] != "") 
 
                 ) {
